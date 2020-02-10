@@ -26,3 +26,8 @@ body {
   font-size: 1.625rem;
   font-weight: bold;
 }
+
+/* NavBar */
+.footer {
+  text-align: center;
+}
