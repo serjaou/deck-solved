@@ -1,5 +1,7 @@
 body {
   margin: 0;
+  min-height: 100vh;
+  position: relative;
 }
 
 /* NavBar */
@@ -27,7 +29,16 @@ body {
   font-weight: bold;
 }
 
-/* NavBar */
+/* Content */
+.content {
+  padding: 2rem 4rem;
+}
+
+/* Footer */
 .footer {
+  bottom: 0;
+  height: 2rem;
+  position: absolute;
   text-align: center;
+  width: 100%;
 }
