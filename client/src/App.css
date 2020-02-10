@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+}
+
+/* NavBar */
+.nav-bar {
+  background-color: #393e46;
+  color: #eeeeee;
+  height: 2rem;
+  padding: 1rem 4rem;
+}
+.nav-bar .links {
+  float: right;
+  padding: 0.375rem 0;
+}
+.nav-bar .links a {
+  font-size: 1rem;
+  margin-right: 2rem;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.nav-bar .links a:visited {
+  color: inherit;
+}
+.nav-bar .brand {
+  font-size: 1.625rem;
+  font-weight: bold;
+}
