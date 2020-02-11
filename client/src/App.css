@@ -31,14 +31,30 @@ body {
 
 /* Content */
 .content {
+  background-color: #eeeeee;
+  background-image: url('./images/content-bg.png');
   padding: 2rem 4rem;
 }
 
 /* Footer */
 .footer {
+  background-color: #393e46;
   bottom: 0;
+  color: #eeeeee;
   height: 2rem;
+  padding-top: 0.5rem;
   position: absolute;
   text-align: center;
   width: 100%;
+}
+
+/* Search */
+.search .input-block {
+  text-align: center;
+  margin: 12rem auto 20rem;
+}
+.search .input-block input {
+  width: 100%;
+  max-width: 32rem;
+  margin-right: 0.5rem;
 }
