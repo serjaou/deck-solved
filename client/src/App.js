@@ -6,13 +6,11 @@ import theme from './theme';
 
 export default function App() {
   return (
-    <React.Fragment>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
-      <ThemeProvider theme={theme}>
-        <NavBar />
-        <Search />
-        <Footer />
-      </ThemeProvider>
-    </React.Fragment>
+      <NavBar />
+      <Search />
+      <Footer />
+    </ThemeProvider>
   );
 }

@@ -23,6 +23,9 @@ const theme = createMuiTheme({
     },
     info: {
       main: '#A0BED6'
+    },
+    background: {
+      default: '#EEEEEE'
     }
   }
 });
