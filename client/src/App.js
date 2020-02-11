@@ -1,19 +1,20 @@
 import React from 'react';
+import { CssBaseline } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/core/styles';
 import NavBar from './components/layout/NavBar';
 import Footer from './components/layout/Footer';
 import Search from './components/Search';
-import './App.css';
+import theme from './theme';
 
-function App() {
+export default function App() {
   return (
-    <div>
-      <NavBar />
-      <div className='content'>
+    <React.Fragment>
+      <CssBaseline />
+      <ThemeProvider theme={theme}>
+        <NavBar />
         <Search />
-      </div>
-      <Footer />
-    </div>
+        <Footer />
+      </ThemeProvider>
+    </React.Fragment>
   );
 }
-
-export default App;
