@@ -4,7 +4,8 @@ import { Button, Container, InputBase, Paper } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   button: {
-    padding: '0.5rem 1rem'
+    padding: '0.5rem 1rem',
+    margin: '0.25rem'
   },
   container: {
     padding: '16rem 0 24rem',
@@ -15,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     display: 'inline-block',
-    marginRight: '0.5rem',
+    margin: '0.25rem',
     padding: '0.25rem 1rem',
     width: '75%'
   }
@@ -24,18 +25,24 @@ const useStyles = makeStyles(theme => ({
 function Search() {
   const classes = useStyles();
   return (
-    <Container className={classes.container} maxWidth='md'>
-      <Paper className={classes.paper} elevation={2}>
-        <InputBase
-          autoFocus={true}
-          className={classes.input}
-          placeholder='Search for a card...'
-          type='search'
-        />
-      </Paper>
-      <Button className={classes.button} variant='contained' color='secondary'>
-        Search
-      </Button>
+    <Container maxWidth='lg'>
+      <Container className={classes.container} maxWidth='md'>
+        <Paper className={classes.paper} elevation={2}>
+          <InputBase
+            autoFocus={true}
+            className={classes.input}
+            placeholder='Search for a card...'
+            type='search'
+          />
+        </Paper>
+        <Button
+          className={classes.button}
+          variant='contained'
+          color='secondary'
+        >
+          Search
+        </Button>
+      </Container>
     </Container>
   );
 }
