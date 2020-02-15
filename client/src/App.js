@@ -6,9 +6,9 @@ import theme from './theme';
 
 const useStyles = makeStyles(theme => ({
   container: {
+    backgroundImage: 'url("/bg-content.png")',
     margin: '0',
-    padding: '2rem 2rem 0.5rem',
-    backgroundImage: 'url("/bg-content.png")'
+    padding: '0'
   }
 }));
 

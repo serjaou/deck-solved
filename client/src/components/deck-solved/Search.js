@@ -7,7 +7,7 @@ const useStyles = makeStyles(theme => ({
     padding: '0.5rem 1rem'
   },
   container: {
-    margin: '12rem auto 24rem',
+    padding: '16rem 0 24rem',
     textAlign: 'center'
   },
   input: {
