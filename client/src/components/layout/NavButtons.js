@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Button, IconButton, Menu, MenuItem } from '@material-ui/core';
 import { useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles(theme => ({
@@ -14,38 +15,42 @@ function NavButtons() {
   const matches = useMediaQuery('(max-width:600px)');
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const handleClick = event => {
+  const history = useHistory();
+
+  const openMenu = event => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleClick = event => {
+    const parsedRoute = event.target.innerText.toLowerCase().replace(/ /g, '-');
+    history.push(`/${parsedRoute}`);
     setAnchorEl(null);
   };
 
   return matches ? (
     <div>
-      <IconButton color='inherit' aria-label='menu' onClick={handleClick}>
+      <IconButton color='inherit' aria-label='menu' onClick={openMenu}>
         <MenuIcon />
       </IconButton>
       <Menu
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
-        onClose={handleClose}
+        onClose={handleClick}
       >
-        <MenuItem onClick={handleClose}>Search</MenuItem>
-        <MenuItem onClick={handleClose}>Build Deck</MenuItem>
-        <MenuItem onClick={handleClose}>About</MenuItem>
+        <MenuItem onClick={handleClick}>Search</MenuItem>
+        <MenuItem onClick={handleClick}>Build Deck</MenuItem>
+        <MenuItem onClick={handleClick}>About</MenuItem>
       </Menu>
     </div>
   ) : (
     <Box component='span'>
-      <Button className={classes.button} color='inherit'>
+      <Button onClick={handleClick} className={classes.button} color='inherit'>
         Search
       </Button>
-      <Button className={classes.button} color='inherit'>
+      <Button onClick={handleClick} className={classes.button} color='inherit'>
         Build Deck
       </Button>
-      <Button className={classes.button} color='inherit'>
+      <Button onClick={handleClick} className={classes.button} color='inherit'>
         About
       </Button>
     </Box>

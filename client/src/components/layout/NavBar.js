@@ -6,6 +6,9 @@ import NavButtons from './NavButtons';
 const useStyles = makeStyles(theme => ({
   title: {
     flexGrow: 1
+  },
+  toolbar: {
+    padding: '0'
   }
 }));
 
@@ -15,7 +18,7 @@ function NavBar() {
   return (
     <AppBar position='static'>
       <Container maxWidth='lg'>
-        <Toolbar>
+        <Toolbar className={classes.toolbar}>
           <Typography variant='h6' className={classes.title}>
             Deck Solved
           </Typography>
