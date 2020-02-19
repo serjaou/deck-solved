@@ -4,6 +4,7 @@ import { useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
+import { parseRoute } from '../../common';
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -12,16 +13,17 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function NavButtons() {
-  const matches = useMediaQuery('(max-width:600px)');
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
   const history = useHistory();
+  const matches = useMediaQuery('(max-width:600px)');
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
   const openMenu = event => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClick = event => {
-    const parsedRoute = event.target.innerText.toLowerCase().replace(/ /g, '-');
+    const parsedRoute = parseRoute(event.target.innerText);
     history.push(`/${parsedRoute}`);
     setAnchorEl(null);
   };
