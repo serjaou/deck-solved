@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Container, InputBase, Paper } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   searchButton: {
@@ -22,6 +23,20 @@ const useStyles = makeStyles(theme => ({
 
 function Search() {
   const classes = useStyles();
+  const [value, setValue] = useState('');
+  const history = useHistory();
+
+  const handleSubmit = () => {
+    history.push(`/search/${value}`);
+  };
+
+  const handleChange = event => {
+    setValue(event.target.value);
+  };
+
+  const handleKeyPress = event => {
+    if (event.key === 'Enter') handleSubmit();
+  };
 
   return (
     <Container className={classes.container} maxWidth='md'>
@@ -30,13 +45,16 @@ function Search() {
           autoFocus={true}
           fullWidth={true}
           placeholder='Search for a card...'
-          type='search'
+          value={value}
+          onChange={handleChange}
+          onKeyPress={handleKeyPress}
         />
       </Paper>
       <Button
         className={classes.searchButton}
         variant='contained'
         color='secondary'
+        onClick={handleSubmit}
       >
         Search
       </Button>
