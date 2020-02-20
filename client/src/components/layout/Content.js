@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
-import { Search, SearchResults } from '../../components';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { Search } from '../../components';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -12,8 +12,6 @@ const useStyles = makeStyles(theme => ({
 
 function Content() {
   const classes = useStyles();
-  const query = new URLSearchParams(useLocation().search);
-  const searchName = query.get('name');
 
   return (
     <Container className={classes.container} maxWidth='lg'>
@@ -22,7 +20,7 @@ function Content() {
           <Redirect to='/search' />
         </Route>
         <Route path='/search'>
-          {searchName ? <SearchResults name={searchName} /> : <Search />}
+          <Search />
         </Route>
         <Route path='/build-deck'>BUILD DECK</Route>
         <Route path='/about'>ABOUT</Route>

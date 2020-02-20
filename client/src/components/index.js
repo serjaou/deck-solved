@@ -1,5 +1,4 @@
 import DisplayCard from './DisplayCard';
-import Search from './Search';
-import SearchResults from './SearchResults';
+import Search from './search/Search';
 
-export { DisplayCard, Search, SearchResults };
+export { DisplayCard, Search };
