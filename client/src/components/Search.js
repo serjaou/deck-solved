@@ -27,7 +27,10 @@ function Search() {
   const history = useHistory();
 
   const handleSubmit = () => {
-    history.push(`/search/${value}`);
+    history.push({
+      pathname: '/search',
+      search: `name=${value}`
+    });
   };
 
   const handleChange = event => {
