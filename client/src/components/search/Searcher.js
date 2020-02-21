@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function SimpleSearch() {
+function Searcher() {
   const classes = useStyles();
   const [value, setValue] = useState('');
   const history = useHistory();
@@ -65,4 +65,4 @@ function SimpleSearch() {
   );
 }
 
-export default SimpleSearch;
+export default Searcher;

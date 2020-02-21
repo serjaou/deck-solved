@@ -4,11 +4,11 @@ import { AppBar, Container, Toolbar, Typography } from '@material-ui/core';
 import NavButtons from './NavButtons';
 
 const useStyles = makeStyles(theme => ({
+  container: {
+    padding: '0 2.5rem'
+  },
   title: {
     flexGrow: 1
-  },
-  toolbar: {
-    padding: '0'
   }
 }));
 
@@ -17,8 +17,8 @@ function NavBar() {
 
   return (
     <AppBar position='static'>
-      <Container maxWidth='lg'>
-        <Toolbar className={classes.toolbar}>
+      <Container className={classes.container} maxWidth='lg'>
+        <Toolbar>
           <Typography variant='h6' className={classes.title}>
             Deck Solved
           </Typography>

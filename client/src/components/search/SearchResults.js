@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { CardPage } from '../../components';
 import axios from 'axios';
 
 function SearchResults(props) {
@@ -16,7 +17,7 @@ function SearchResults(props) {
       });
   }, [props.name]);
 
-  return <h6>{loading ? 'loading...' : JSON.stringify(results)}</h6>;
+  return loading ? <h6>loading...</h6> : <CardPage card={results.data[0]} />;
 }
 
 export default SearchResults;

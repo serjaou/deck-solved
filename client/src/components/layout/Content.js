@@ -6,7 +6,8 @@ import { Search } from '../../components';
 
 const useStyles = makeStyles(theme => ({
   container: {
-    minHeight: '90vh'
+    minHeight: '90vh',
+    padding: '0'
   }
 }));
 
