@@ -6,11 +6,16 @@ import { useHistory } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
 import { parseRoute } from '../../common';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   button: {
-    marginLeft: '1rem'
+    marginLeft: '1rem',
+    paddingRight: '0'
+  },
+  menuButton: {
+    position: 'relative',
+    left: '0.75rem'
   }
-}));
+});
 
 function NavButtons() {
   const classes = useStyles();
@@ -21,23 +26,30 @@ function NavButtons() {
   const openMenu = event => {
     setAnchorEl(event.currentTarget);
   };
-
+  const closeMenu = () => {
+    setAnchorEl(null);
+  };
   const handleClick = event => {
     const parsedRoute = parseRoute(event.target.innerText);
     history.push(`/${parsedRoute}`);
-    setAnchorEl(null);
+    closeMenu();
   };
 
   return matches ? (
     <div>
-      <IconButton color='inherit' aria-label='menu' onClick={openMenu}>
+      <IconButton
+        className={classes.menuButton}
+        color='inherit'
+        aria-label='menu'
+        onClick={openMenu}
+      >
         <MenuIcon />
       </IconButton>
       <Menu
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
-        onClose={handleClick}
+        onClose={closeMenu}
       >
         <MenuItem onClick={handleClick}>Search</MenuItem>
         <MenuItem onClick={handleClick}>Build Deck</MenuItem>

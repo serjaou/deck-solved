@@ -5,13 +5,13 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Header, Footer, Content } from './components/layout';
 import theme from './theme';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   background: {
     backgroundImage: 'url("/bg-content.png")',
     margin: '0',
     padding: '0'
   }
-}));
+});
 
 export default function App() {
   const classes = useStyles();

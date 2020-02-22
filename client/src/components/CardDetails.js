@@ -2,21 +2,13 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Divider, Typography } from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
-  artist: { padding: '1rem 1rem 1rem 1rem' },
-  flavorText: { padding: '0 1rem 1rem 1rem', fontStyle: 'italic' },
-  title: {
-    padding: '2rem 1rem 0.5rem 0',
-    fontWeight: '700',
-    textAlign: 'end'
-  },
-  subtitle: {
-    padding: '0.5rem 1rem 0.5rem 0',
-    fontWeight: '600',
-    textAlign: 'end'
-  },
-  text: { padding: '1rem 1rem 1rem 0', fontWeight: '500' }
-}));
+const useStyles = makeStyles({
+  artist: { padding: '1rem 0 1rem 1rem' },
+  flavorText: { padding: '0 0 1rem 1rem', fontStyle: 'italic' },
+  title: { padding: '2rem 0 0.5rem 1rem', fontWeight: '700' },
+  subtitle: { padding: '0.5rem 0 0.5rem 1rem', fontWeight: '600' },
+  text: { padding: '1rem 0 1rem 1rem', fontWeight: '500' }
+});
 
 function CardPage(props) {
   const classes = useStyles();
@@ -42,7 +34,7 @@ function CardPage(props) {
       <Typography className={classes.text} align='justify' variant='body1'>
         {props.card.oracle_text}
       </Typography>
-      <Typography className={classes.flavorText} align='right' variant='body2'>
+      <Typography className={classes.flavorText} variant='body2'>
         {props.card.flavor_text}
       </Typography>
       <Divider />
@@ -54,7 +46,7 @@ function CardPage(props) {
           <Divider />
         </div>
       )}
-      <Typography className={classes.artist} align='right' variant='body2'>
+      <Typography className={classes.artist} variant='body2'>
         <strong>Artist: </strong>
         <em>{props.card.artist}</em>
       </Typography>

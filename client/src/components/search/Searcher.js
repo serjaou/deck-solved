@@ -3,23 +3,23 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Button, Container, InputBase, Paper } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   searchButton: {
-    padding: '0.5rem 1.5rem',
+    padding: '0.5rem 1rem',
     margin: '0.25rem'
   },
   container: {
     display: 'flex',
     flexWrap: 'wrap',
-    padding: '30vh 0 0',
+    padding: '30vh 2rem 0',
     justifyContent: 'center'
   },
   paper: {
     flexGrow: '1',
     margin: '0.25rem',
-    padding: '0.25rem 1.5rem'
+    padding: '0.25rem 1rem'
   }
-}));
+});
 
 function Searcher() {
   const classes = useStyles();
