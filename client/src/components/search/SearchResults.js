@@ -17,7 +17,13 @@ function SearchResults(props) {
       });
   }, [props.name]);
 
-  return loading ? <h6>loading...</h6> : <CardPage card={results.data[0]} />;
+  return loading ? (
+    <h6>loading...</h6>
+  ) : results.data.length !== 0 ? (
+    <CardPage card={results.data[0]} />
+  ) : (
+    <h6>No results were found.</h6>
+  );
 }
 
 export default SearchResults;
