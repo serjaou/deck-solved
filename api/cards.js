@@ -14,12 +14,11 @@ router.get('/', (req, res) => {
     res.send([]);
   }
   Card.find({ name: new RegExp(req.query.name, 'i') }).then(cards => {
-    const uniqueCards = [];
     res.send(
-      cards.filter(card =>
-        !uniqueCards.includes(card.name) && card.layout !== 'token'
-          ? uniqueCards.push(card.name)
-          : false
+      cards.filter(
+        card =>
+          card.multiverse_ids.length > 0 &&
+          (card.set_type === 'expansion' || card.set_type === 'core')
       )
     );
   });
