@@ -13,15 +13,9 @@ router.get('/', (req, res) => {
   if (!req.query.name) {
     res.send([]);
   }
-  Card.find({ name: new RegExp(req.query.name, 'i') }).then(cards => {
-    res.send(
-      cards.filter(
-        card =>
-          card.multiverse_ids.length > 0 &&
-          (card.set_type === 'expansion' || card.set_type === 'core')
-      )
-    );
-  });
+  Card.find({ name: new RegExp(req.query.name, 'i') }).then(cards =>
+    res.send(cards)
+  );
 });
 
 module.exports = router;

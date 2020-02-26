@@ -13,7 +13,7 @@ const useStyles = makeStyles({
   },
   menuButton: {
     position: 'relative',
-    left: '0.75rem'
+    left: '0.875rem'
   }
 });
 
