@@ -7,7 +7,11 @@ const useStyles = makeStyles({
   flavorText: { padding: '0 0 1rem 1rem', fontStyle: 'italic' },
   title: { padding: '2rem 0 0.5rem 1rem', fontWeight: '700' },
   subtitle: { padding: '0.5rem 0 0.5rem 1rem', fontWeight: '600' },
-  text: { padding: '1rem 0 1rem 1rem', fontWeight: '500' }
+  text: {
+    whiteSpace: 'pre-wrap',
+    padding: '1rem 0 1rem 1rem',
+    fontWeight: '400'
+  }
 });
 
 function CardPage(props) {
@@ -42,6 +46,15 @@ function CardPage(props) {
         <div>
           <Typography className={classes.subtitle} variant='subtitle1'>
             {props.card.power + '/' + props.card.toughness}
+          </Typography>
+          <Divider />
+        </div>
+      )}
+      {props.card.loyalty && (
+        <div>
+          <Typography className={classes.text} variant='subtitle1'>
+            <strong>Loyalty: </strong>
+            {props.card.loyalty}
           </Typography>
           <Divider />
         </div>
