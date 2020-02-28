@@ -5,8 +5,10 @@ const useStyles = makeStyles({
   image: {
     maxWidth: props => props.size,
     width: '100%',
-    filter: 'drop-shadow(0.25rem 0.25rem 0.25rem #333333)',
-    webkitFilter: 'drop-shadow(0.25rem 0.25rem 0.25rem #333333)'
+    filter: props =>
+      props.shadow ? 'drop-shadow(0.25rem 0.25rem 0.25rem #333333)' : '',
+    webkitFilter: props =>
+      props.shadow ? 'drop-shadow(0.25rem 0.25rem 0.25rem #333333)' : ''
   }
 });
 

@@ -27,7 +27,7 @@ function CardPage(props) {
         spacing={2}
       >
         <Grid item className={matchesImg ? classes.cardImage : undefined}>
-          <CardImage card={props.card} size='24rem' variant='png' />
+          <CardImage card={props.card} shadow={true} size='24rem' variant='png' />
         </Grid>
         <Grid item xs={12} md={6}>
           <CardDetails card={props.card} />
