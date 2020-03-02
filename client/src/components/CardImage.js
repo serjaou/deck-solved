@@ -3,23 +3,23 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   image: {
-    maxWidth: props => props.size,
     width: '100%',
-    filter: props =>
-      props.shadow ? 'drop-shadow(0.25rem 0.25rem 0.25rem #333333)' : '',
-    webkitFilter: props =>
-      props.shadow ? 'drop-shadow(0.25rem 0.25rem 0.25rem #333333)' : ''
+    backgroundImage:
+      'repeating-linear-gradient(-45deg, #CCC, #CCC 6px, #BBB 6px, #BBB 12px)',
+    borderRadius: '4.75% / 3.5%',
+    filter: 'drop-shadow(0.25rem 0.25rem 0.25rem #333)',
+    webkitFilter: 'drop-shadow(0.25rem 0.25rem 0.25rem #333)'
   }
 });
 
 function CardImage(props) {
-  const classes = useStyles(props);
+  const classes = useStyles();
 
   return (
     <img
       className={classes.image}
-      src={props.card.image_uris[props.variant]}
-      alt={props.card.name}
+      src={props.card.image_uris ? props.card.image_uris[props.variant] : ''}
+      alt={props.card.name ? props.card.name : ''}
     />
   );
 }

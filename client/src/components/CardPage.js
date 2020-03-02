@@ -1,9 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Paper, useMediaQuery } from '@material-ui/core';
+import { Box, Grid, Paper, useMediaQuery } from '@material-ui/core';
 import { CardDetails, CardImage } from '../components';
 
 const useStyles = makeStyles({
+  card: {
+    width: '24rem'
+  },
   grid: {
     justifyContent: 'center'
   },
@@ -27,7 +30,9 @@ function CardPage(props) {
         spacing={2}
       >
         <Grid item className={matchesImg ? classes.cardImage : undefined}>
-          <CardImage card={props.card} shadow={true} size='24rem' variant='png' />
+          <Box className={classes.card}>
+            <CardImage card={props.card} variant='png' />
+          </Box>
         </Grid>
         <Grid item xs={12} md={6}>
           <CardDetails card={props.card} />
