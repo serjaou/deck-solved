@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     padding: '1rem 0'
   },
-  page: { padding: '0 3rem' },
+  page: { padding: '0 2rem' },
   resultsTitle: { flexGrow: '1' }
 });
 

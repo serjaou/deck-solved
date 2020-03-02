@@ -5,7 +5,7 @@ import NavButtons from './NavButtons';
 
 const useStyles = makeStyles({
   container: {
-    padding: '0 3rem'
+    padding: '0 2rem'
   },
   title: {
     flexGrow: 1

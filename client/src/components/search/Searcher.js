@@ -5,13 +5,13 @@ import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles({
   searchButton: {
-    padding: '0.5rem 1rem',
+    padding: '0.5rem 1.5rem',
     margin: '0.25rem'
   },
   container: {
     display: 'flex',
     flexWrap: 'wrap',
-    padding: '30vh 2rem 0',
+    padding: '30vh 1rem 0',
     justifyContent: 'center'
   },
   paper: {
