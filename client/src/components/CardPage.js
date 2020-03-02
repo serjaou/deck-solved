@@ -4,9 +4,17 @@ import { Box, Grid, Paper, useMediaQuery } from '@material-ui/core';
 import { CardDetails, CardImage } from '../components';
 
 const useStyles = makeStyles({
-  card: { maxWidth: '24rem', width: '100%' },
-  grid: { justifyContent: 'center' },
-  paper: { backgroundImage: 'url("/bg-paper.png")', padding: '1rem 2rem' }
+  card: {
+    maxWidth: '24rem',
+    width: '100%'
+  },
+  grid: {
+    justifyContent: 'center'
+  },
+  paper: {
+    backgroundImage: 'url("/bg-paper.png")',
+    padding: '1rem 2rem'
+  }
 });
 
 function CardPage(props) {
@@ -15,12 +23,7 @@ function CardPage(props) {
 
   return (
     <Paper className={classes.paper} elevation={2}>
-      <Grid
-        container
-        className={matchesMd ? classes.grid : undefined}
-        direction='row'
-        spacing={2}
-      >
+      <Grid container className={matchesMd ? classes.grid : undefined} direction='row' spacing={2}>
         <Grid item>
           <Box className={classes.card}>
             <CardImage card={props.card} variant='png' />

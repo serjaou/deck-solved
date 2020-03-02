@@ -23,15 +23,11 @@ function useDataHandler(itemsPerPage = 25, data = [], comparingFunc = {}) {
     }
   };
   const sortByField = fieldName => {
-    const sortedData = comparingFunc[fieldName]
-      ? _data.sort(comparingFunc[fieldName])
-      : _data.sort();
+    const sortedData = comparingFunc[fieldName] ? _data.sort(comparingFunc[fieldName]) : _data.sort();
     _setData(sortedData);
   };
 
-  const slicedData = _data.length
-    ? _data.slice(_page * itemsPerPage, (_page + 1) * itemsPerPage)
-    : [];
+  const slicedData = _data.length ? _data.slice(_page * itemsPerPage, (_page + 1) * itemsPerPage) : [];
   const metaData = {
     page: _page,
     endingPage: _data.length ? Math.ceil(_data.length / itemsPerPage) : 1

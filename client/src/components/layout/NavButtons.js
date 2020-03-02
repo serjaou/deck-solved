@@ -1,6 +1,5 @@
 import React from 'react';
-import { Box, Button, IconButton, Menu, MenuItem } from '@material-ui/core';
-import { useMediaQuery } from '@material-ui/core';
+import { Box, Button, IconButton, Menu, MenuItem, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -37,20 +36,10 @@ function NavButtons() {
 
   return matches ? (
     <div>
-      <IconButton
-        className={classes.menuButton}
-        color='inherit'
-        aria-label='menu'
-        onClick={openMenu}
-      >
+      <IconButton className={classes.menuButton} color='inherit' aria-label='menu' onClick={openMenu}>
         <MenuIcon />
       </IconButton>
-      <Menu
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={closeMenu}
-      >
+      <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={closeMenu}>
         <MenuItem onClick={handleClick}>Search</MenuItem>
         <MenuItem onClick={handleClick}>Build Deck</MenuItem>
         <MenuItem onClick={handleClick}>About</MenuItem>

@@ -3,7 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Container } from '@material-ui/core';
 
 const useStyle = makeStyles({
-  container: { padding: '0.5rem', textAlign: 'center' }
+  container: {
+    padding: '0.5rem',
+    textAlign: 'center'
+  }
 });
 
 function Footer() {

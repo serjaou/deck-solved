@@ -4,10 +4,7 @@ const cardSchema = require('../schemas/cardSchema');
 
 async function uploadParsedData(sourceURI, targetURI) {
   console.log('Connecting to databases...');
-  const [sourceModel, targetModel] = await connectToDatabases(
-    sourceURI,
-    targetURI
-  );
+  const [sourceModel, targetModel] = await connectToDatabases(sourceURI, targetURI);
 
   console.log('Building the pipelines...');
   const pipeline = [];

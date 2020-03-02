@@ -3,10 +3,21 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Divider, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
-  artist: { padding: '1rem 0 1rem 1rem' },
-  flavorText: { padding: '0 0 1rem 1rem', fontStyle: 'italic' },
-  title: { padding: '2rem 0 0.5rem 1rem', fontWeight: '700' },
-  subtitle: { padding: '0.5rem 0 0.5rem 1rem', fontWeight: '600' },
+  artist: {
+    padding: '1rem 0 1rem 1rem'
+  },
+  flavorText: {
+    padding: '0 0 1rem 1rem',
+    fontStyle: 'italic'
+  },
+  title: {
+    padding: '2rem 0 0.5rem 1rem',
+    fontWeight: '700'
+  },
+  subtitle: {
+    padding: '0.5rem 0 0.5rem 1rem',
+    fontWeight: '600'
+  },
   text: {
     whiteSpace: 'pre-wrap',
     padding: '1rem 0 1rem 1rem',

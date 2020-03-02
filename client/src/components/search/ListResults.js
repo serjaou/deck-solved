@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { CardImage } from '../../components';
 
 const useStyles = makeStyles({
   card: {
@@ -10,7 +9,7 @@ const useStyles = makeStyles({
   }
 });
 
-function ImageResults(props) {
+function ListResults(props) {
   const matches = useMediaQuery('(max-width:600px)');
   const classes = useStyles(matches);
 
@@ -18,11 +17,11 @@ function ImageResults(props) {
     <Grid container direction='row' spacing={1}>
       {props.cards.map(card => (
         <Grid className={classes.card} key={card.id} item>
-          <CardImage card={card} variant='normal' />
+          <p>{card.name}</p>
         </Grid>
       ))}
     </Grid>
   );
 }
 
-export default ImageResults;
+export default ListResults;

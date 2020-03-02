@@ -13,9 +13,7 @@ router.get('/', (req, res) => {
   if (!req.query.name) {
     res.send([]);
   }
-  Card.find({ name: new RegExp(req.query.name, 'i') }).then(cards =>
-    res.send(cards)
-  );
+  Card.find({ name: new RegExp(req.query.name, 'i') }).then(cards => res.send(cards));
 });
 
 module.exports = router;
