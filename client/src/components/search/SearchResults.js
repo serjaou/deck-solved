@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { CardPage } from '../../components';
 import axios from 'axios';
+import { CardPage } from '../../components';
+import MultipleResults from './MultipleResults';
 
 function SearchResults(props) {
   const [results, setResults] = useState([]);
@@ -19,10 +20,12 @@ function SearchResults(props) {
 
   return loading ? (
     <h6>loading...</h6>
-  ) : results.data.length !== 0 ? (
+  ) : results.data.length === 0 ? (
+    <h6>No results were found.</h6>
+  ) : results.data.length === 1 ? (
     <CardPage card={results.data[0]} />
   ) : (
-    <h6>No results were found.</h6>
+    <MultipleResults query={props.name} cards={results.data} />
   );
 }
 

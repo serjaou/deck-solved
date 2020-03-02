@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 /**
  * @param {Array} data
@@ -10,35 +10,30 @@ import React, { useState } from 'react';
  */
 function useDataHandler(data, itemsPerPage, comparingFunc = {}) {
   const [_data, _setData] = useState(data);
-  const [_pageNum, _setPageNum] = useState(0);
+  const [_page, _setPage] = useState(0);
 
-  const prevPage = () => {
-    if (_pageNum >= 1) {
-      _setPageNum(_pageNum - 1);
-    }
-  };
-  const nextPage = () => {
-    if ((_pageNum + 1) * itemsPerPage <= _data.length) {
-      _setPageNum(_pageNum + 1);
-    }
-  };
   const sortByField = fieldName => {
     const sortedData = comparingFunc[fieldName]
       ? _data.sort(comparingFunc[fieldName])
       : _data.sort();
     _setData(sortedData);
   };
+  const setPage = page => {
+    if (page >= 0 || page <= Math.ceil(data.length / itemsPerPage)) {
+      _setPage(page);
+    }
+  };
 
   const slicedData = _data.slice(
-    _pageNum * itemsPerPage,
-    (_pageNum + 1) * itemsPerPage
+    _page * itemsPerPage,
+    (_page + 1) * itemsPerPage
   );
   const metaData = {
-    pageNum: _pageNum,
+    page: _page,
     endingPage: Math.ceil(data.length / itemsPerPage)
   };
 
-  return [slicedData, metaData, prevPage, nextPage, sortByField];
+  return [slicedData, metaData, setPage, sortByField];
 }
 
 export default useDataHandler;
