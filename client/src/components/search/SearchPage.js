@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   }
 });
 
-function Searcher() {
+function SearchPage() {
   const classes = useStyles();
   const [value, setValue] = useState('');
   const history = useHistory();
@@ -32,11 +32,9 @@ function Searcher() {
       search: `name=${value}`
     });
   };
-
   const handleChange = event => {
     setValue(event.target.value);
   };
-
   const handleKeyPress = event => {
     if (event.key === 'Enter') handleSubmit();
   };
@@ -65,4 +63,4 @@ function Searcher() {
   );
 }
 
-export default Searcher;
+export default SearchPage;
