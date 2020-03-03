@@ -35,7 +35,7 @@ const useStyles = makeStyles({
 });
 
 function Results(props) {
-  const [results, metadata, setResults, setPage] = useDataHandler(24);
+  const [results, metadata, setResults, setPage] = useDataHandler(48);
   const [dataLoaded, setDataLoaded] = useState(false);
   const [format, setFormat] = useState('images');
   const classes = useStyles();
@@ -49,7 +49,7 @@ function Results(props) {
         setResults(response.data);
         setDataLoaded(true);
       });
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [props.query]);
 
   const handleFormat = (event, format) => {
