@@ -7,22 +7,53 @@ const theme = createMuiTheme({
       white: '#EEEEEE'
     },
     primary: {
-      main: '#393E46'
+      darker: '#1A1D20',
+      dark: '#2A2E33',
+      main: '#393E46',
+      light: '#6F7278',
+      lighter: '#A5A7AA'
     },
     secondary: {
-      main: '#E5CD90'
+      darker: '#695E42',
+      dark: '#A79669',
+      main: '#E5CD90',
+      light: '#ECDAAE',
+      lighter: '#F3E8CC'
     },
     error: {
-      main: '#D65D35'
+      darker: '#622B19',
+      dark: '#9C4427',
+      main: '#D65D35',
+      light: '#E1896C',
+      lighter: '#ECB5A3'
     },
     warning: {
-      main: '#E5A97E'
+      darker: '#694D3A',
+      dark: '#A77B5C',
+      main: '#E5A97E',
+      light: '#ECC0A1',
+      lighter: '#F3D7C4'
     },
     success: {
-      main: '#C9D689'
+      darker: '#5C623F',
+      dark: '#939C64',
+      main: '#C9D689',
+      light: '#D7E1A9',
+      lighter: '#E6ECC9'
     },
     info: {
-      main: '#A0BED6'
+      darker: '#495762',
+      dark: '#758B9C',
+      main: '#A0BED6',
+      light: '#B9CFE1',
+      lighter: '#D3E1EC'
+    },
+    gray: {
+      darker: '#56585B',
+      dark: '#7A7D82',
+      main: '#9C9EA2',
+      light: '#BDBEC1',
+      lighter: '#DEDEE0'
     },
     background: {
       default: '#EEEEEE'
