@@ -3,36 +3,56 @@ import { useState } from 'react';
 /**
  * @param {Array} data
  * @param {Number} itemsPerPage
- * @param {Object} comparingFunc
+ * @param {Object} sortingFunctions
  * useDataHandler.- custom hook that serves paginated data.
- * comparingFunc.- object that contains comparison algorithms to sort data
- * according to a specific field: { <fieldName>: <comparingFunction>, ... }.
+ * sortingFunctions.- object that contains comparison algorithms to sort data
+ * according to a specific field: { <fieldName>: <sortingFunction>, ... }.
  */
-function useDataHandler(itemsPerPage = 25, data = [], comparingFunc = {}) {
-  const [_data, _setData] = useState(data);
+function useDataHandler(initData = [], sortingFunctions = {}, itemsPerPage = 48) {
+  const [_data, _setData] = useState(initData);
   const [_page, _setPage] = useState(0);
+  const [_itemsPerPage, _setItemsPerPage] = useState(itemsPerPage);
+  const [_sortingField, _setSortingField] = useState(undefined);
+  const _finalPage = Math.ceil(_data.length / _itemsPerPage);
 
   const setData = data => {
-    if (typeof data === 'object' && data.length > 0) {
+    if (Array.isArray(data) && data.length > 0) {
       _setData(data);
     }
   };
   const setPage = page => {
-    if (page >= 0 || page <= Math.ceil(data.length / itemsPerPage)) {
+    if (!isNaN(page) && page >= 0 && page < _finalPage) {
       _setPage(page);
     }
   };
-  const sortByField = fieldName => {
-    const sortedData = comparingFunc[fieldName] ? _data.sort(comparingFunc[fieldName]) : _data.sort();
-    _setData(sortedData);
+  const setItemsPerPage = itemsPerPage => {
+    if (!isNaN(itemsPerPage) && itemsPerPage > 0) {
+      _setItemsPerPage(itemsPerPage);
+    }
+  };
+  const sortByField = field => {
+    if (field === _sortingField) {
+      _setData([..._data.reverse()]);
+    } else if (sortingFunctions[field]) {
+      _setData(_data.sort(sortingFunctions[field]));
+      _setSortingField(field);
+    }
   };
 
-  const slicedData = _data.length ? _data.slice(_page * itemsPerPage, (_page + 1) * itemsPerPage) : [];
-  const metaData = {
+  const data = {
+    items: _data.slice(_page * _itemsPerPage, (_page + 1) * _itemsPerPage),
+    finalPage: _finalPage,
+    itemsPerPage: _itemsPerPage,
     page: _page,
-    endingPage: _data.length ? Math.ceil(_data.length / itemsPerPage) : 1
+    sortingField: _sortingField
   };
-  return [slicedData, metaData, setData, setPage, sortByField];
+  const dataSetters = {
+    setData,
+    setPage,
+    setItemsPerPage,
+    sortByField
+  };
+  return [data, dataSetters];
 }
 
 export default useDataHandler;

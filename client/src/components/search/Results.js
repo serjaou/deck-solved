@@ -8,6 +8,7 @@ import { useDataHandler } from '../../common';
 import { CardPage } from '../../components';
 import ImageResults from './ImageResults';
 import ListResults from './ListResults';
+import tableFields from './_tableFields';
 import axios from 'axios';
 
 const useStyles = makeStyles({
@@ -35,7 +36,11 @@ const useStyles = makeStyles({
 });
 
 function Results(props) {
-  const [results, metadata, setResults, setPage] = useDataHandler(48);
+  const comparingFunc = Object.assign(...tableFields.map(field => ({ [field.name]: field.comparingFunc })));
+  const [{ items: results, finalPage, page, sortingField }, { setData, setPage, sortByField }] = useDataHandler(
+    undefined,
+    comparingFunc
+  );
   const [dataLoaded, setDataLoaded] = useState(false);
   const [format, setFormat] = useState('images');
   const classes = useStyles();
@@ -46,11 +51,13 @@ function Results(props) {
         params: { name: props.query }
       })
       .then(function(response) {
-        setResults(response.data);
+        setData(response.data);
         setDataLoaded(true);
       });
+
+    return setData([]);
     // eslint-disable-next-line
-  }, [props.query]);
+  }, []);
 
   const handleFormat = (event, format) => {
     setFormat(format);
@@ -65,36 +72,32 @@ function Results(props) {
     <Paper className={classes.page} elevation={2}>
       <Box className={classes.content}>
         <div className={classes.format}>
-          {dataLoaded && (
-            <ToggleButtonGroup size='small' value={format} onChange={handleFormat} exclusive>
-              <ToggleButton className={classes.formatButton} value='list'>
-                <ListIcon />
-              </ToggleButton>
-              <ToggleButton className={classes.formatButton} value='images'>
-                <AppsIcon />
-              </ToggleButton>
-            </ToggleButtonGroup>
-          )}
+          <ToggleButtonGroup size='small' value={format} onChange={handleFormat} exclusive>
+            <ToggleButton className={classes.formatButton} value='list'>
+              <ListIcon />
+            </ToggleButton>
+            <ToggleButton className={classes.formatButton} value='images'>
+              <AppsIcon />
+            </ToggleButton>
+          </ToggleButtonGroup>
         </div>
         <Typography className={classes.resultsTitle} variant='body1'>
           Showing results for <strong>"{props.query}"</strong>.
         </Typography>
-        {dataLoaded && (
-          <Pagination
-            count={metadata.endingPage}
-            color='secondary'
-            page={metadata.page + 1}
-            onChange={handleChange}
-          />
-        )}
+        <Pagination count={finalPage} color='secondary' page={page + 1} onChange={handleChange} />
       </Box>
       <Divider />
       <Box className={classes.content}>
         {dataLoaded ? (
           format === 'images' ? (
-            <ImageResults cards={results} />
+            <ImageResults
+              cards={results}
+              setPage={setPage}
+              sortingField={sortingField}
+              sortByField={sortByField}
+            />
           ) : (
-            <ListResults cards={results} />
+            <ListResults cards={results} setPage={setPage} sortingField={sortingField} sortByField={sortByField} />
           )
         ) : (
           <CircularProgress color='secondary' />
@@ -102,14 +105,7 @@ function Results(props) {
       </Box>
       <Divider />
       <Box className={classes.content}>
-        {dataLoaded && (
-          <Pagination
-            count={metadata.endingPage}
-            color='secondary'
-            page={metadata.page + 1}
-            onChange={handleChange}
-          />
-        )}
+        {<Pagination count={finalPage} color='secondary' page={page + 1} onChange={handleChange} />}
       </Box>
     </Paper>
   );

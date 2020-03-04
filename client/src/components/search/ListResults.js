@@ -19,16 +19,15 @@ const StyledTableRow = withStyles(theme => ({
 }))(TableRow);
 
 function ListResults(props) {
-  const [orderBy, setOrderBy] = useState(null);
   const [order, setOrder] = useState('desc');
   const classes = useStyles();
 
   const createSortHandler = field => {
-    if (field === orderBy) {
+    props.sortByField(field);
+    props.setPage(0);
+    if (field === props.sortingField) {
       setOrder(order === 'desc' ? 'asc' : 'desc');
-      return;
     }
-    setOrderBy(field);
   };
 
   return (
@@ -37,10 +36,10 @@ function ListResults(props) {
         <TableHead>
           <TableRow>
             {tableFields.map(field => (
-              <TableCell key={field._id} sortDirection={orderBy === field.id ? order : false}>
+              <TableCell key={field._id} sortDirection={field.name === props.sortingField ? order : false}>
                 <TableSortLabel
-                  active={orderBy === field.name}
-                  direction={orderBy === field.name ? order : 'asc'}
+                  active={props.sortingField === field.name}
+                  direction={props.sortingField === field.name ? order : 'asc'}
                   onClick={() => createSortHandler(field.name)}
                 >
                   {field.label}
