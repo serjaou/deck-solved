@@ -36,7 +36,12 @@ function NavButtons() {
 
   return matches ? (
     <div>
-      <IconButton className={classes.menuButton} color='inherit' aria-label='menu' onClick={openMenu}>
+      <IconButton
+        className={classes.menuButton}
+        color='inherit'
+        aria-label='menu'
+        onClick={openMenu}
+      >
         <MenuIcon />
       </IconButton>
       <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={closeMenu}>

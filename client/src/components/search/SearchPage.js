@@ -51,7 +51,12 @@ function SearchPage() {
           onKeyPress={handleKeyPress}
         />
       </Paper>
-      <Button className={classes.searchButton} variant='contained' color='secondary' onClick={handleSubmit}>
+      <Button
+        className={classes.searchButton}
+        variant='contained'
+        color='secondary'
+        onClick={handleSubmit}
+      >
         Search
       </Button>
     </Container>

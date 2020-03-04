@@ -36,7 +36,10 @@ function ListResults(props) {
         <TableHead>
           <TableRow>
             {tableFields.map(field => (
-              <TableCell key={field._id} sortDirection={field.name === props.sortingField ? order : false}>
+              <TableCell
+                key={field._id}
+                sortDirection={field.name === props.sortingField ? order : false}
+              >
                 <TableSortLabel
                   active={props.sortingField === field.name}
                   direction={props.sortingField === field.name ? order : 'asc'}

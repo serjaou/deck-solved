@@ -36,11 +36,13 @@ const useStyles = makeStyles({
 });
 
 function Results(props) {
-  const comparingFunc = Object.assign(...tableFields.map(field => ({ [field.name]: field.comparingFunc })));
-  const [{ items: results, finalPage, page, sortingField }, { setData, setPage, sortByField }] = useDataHandler(
-    undefined,
-    comparingFunc
+  const comparingFunc = Object.assign(
+    ...tableFields.map(field => ({ [field.name]: field.comparingFunc }))
   );
+  const [
+    { items: results, finalPage, page, sortingField },
+    { setData, setPage, sortByField }
+  ] = useDataHandler(undefined, comparingFunc);
   const [dataLoaded, setDataLoaded] = useState(false);
   const [format, setFormat] = useState('images');
   const classes = useStyles();
@@ -97,7 +99,12 @@ function Results(props) {
               sortByField={sortByField}
             />
           ) : (
-            <ListResults cards={results} setPage={setPage} sortingField={sortingField} sortByField={sortByField} />
+            <ListResults
+              cards={results}
+              setPage={setPage}
+              sortingField={sortingField}
+              sortByField={sortByField}
+            />
           )
         ) : (
           <CircularProgress color='secondary' />
