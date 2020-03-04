@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead } from '@material-ui/core';
 import { TableRow, TableSortLabel, Paper } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
 import tableFields from './_tableFields';
 
 const useStyles = makeStyles(theme => ({
@@ -12,6 +13,7 @@ const useStyles = makeStyles(theme => ({
 
 const StyledTableRow = withStyles(theme => ({
   root: {
+    cursor: 'pointer',
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.common.white
     }
@@ -20,6 +22,7 @@ const StyledTableRow = withStyles(theme => ({
 
 function ListResults(props) {
   const [order, setOrder] = useState('desc');
+  const history = useHistory();
   const classes = useStyles();
 
   const createSortHandler = field => {
@@ -28,6 +31,11 @@ function ListResults(props) {
     if (field === props.sortingField) {
       setOrder(order === 'desc' ? 'asc' : 'desc');
     }
+  };
+  const handleClick = name => {
+    history.push({
+      pathname: `/cards/${name}`
+    });
   };
 
   return (
@@ -53,7 +61,7 @@ function ListResults(props) {
         </TableHead>
         <TableBody>
           {props.cards.map(card => (
-            <StyledTableRow key={card.id}>
+            <StyledTableRow key={card.id} onClick={() => handleClick(card.name)}>
               <TableCell>{card.name}</TableCell>
               <TableCell>{card.mana_cost}</TableCell>
               <TableCell>{card.type_line}</TableCell>
