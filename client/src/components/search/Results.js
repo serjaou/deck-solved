@@ -28,6 +28,9 @@ const useStyles = makeStyles({
   page: {
     padding: '0 2rem'
   },
+  progress: {
+    margin: '14rem 0 20rem'
+  },
   resultsTitle: {
     alignSelf: 'center',
     flexGrow: '1',
@@ -70,7 +73,7 @@ function Results(props) {
 
   return dataLoaded && results.length === 1 ? (
     <CardPage card={results[0]} />
-  ) : (
+  ) : dataLoaded ? (
     <Paper className={classes.page} elevation={2}>
       <Box className={classes.content}>
         <div className={classes.format}>
@@ -90,29 +93,42 @@ function Results(props) {
       </Box>
       <Divider />
       <Box className={classes.content}>
-        {dataLoaded ? (
-          format === 'images' ? (
-            <ImageResults
-              cards={results}
-              setPage={setPage}
-              sortingField={sortingField}
-              sortByField={sortByField}
-            />
-          ) : (
-            <ListResults
-              cards={results}
-              setPage={setPage}
-              sortingField={sortingField}
-              sortByField={sortByField}
-            />
-          )
+        {format === 'images' ? (
+          <ImageResults
+            cards={results}
+            setPage={setPage}
+            sortingField={sortingField}
+            sortByField={sortByField}
+          />
         ) : (
-          <CircularProgress color='secondary' />
+          <ListResults
+            cards={results}
+            setPage={setPage}
+            sortingField={sortingField}
+            sortByField={sortByField}
+          />
         )}
       </Box>
       <Divider />
       <Box className={classes.content}>
         {<Pagination count={finalPage} color='secondary' page={page + 1} onChange={handleChange} />}
+      </Box>
+    </Paper>
+  ) : (
+    <Paper className={classes.page} elevation={2}>
+      <Box className={classes.content}>
+        <Typography className={classes.resultsTitle} variant='body1'>
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+          Searching for <strong>"{props.query}"</strong>.
+        </Typography>
+      </Box>
+      <Box className={classes.content}>
+        <CircularProgress
+          className={classes.progress}
+          size={56}
+          thickness={4.4}
+          color='secondary'
+        />
       </Box>
     </Paper>
   );

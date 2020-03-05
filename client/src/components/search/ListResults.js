@@ -9,6 +9,9 @@ import tableFields from './_tableFields';
 const useStyles = makeStyles(theme => ({
   container: {
     backgroundColor: theme.palette.gray.lighter
+  },
+  table: {
+    tableLayout: 'fixed'
   }
 }));
 
@@ -28,11 +31,11 @@ const StyledTableRow = withStyles(theme => ({
   }
 }))(TableRow);
 
-const OnHoverTableCell = React.forwardRef(function(props, ref) {
+const CardImageOnHover = React.forwardRef(function(props, ref) {
   return (
-    <TableCell {...props} ref={ref}>
+    <div style={{ display: 'inline-block' }} {...props} ref={ref}>
       {props.card.name}
-    </TableCell>
+    </div>
   );
 });
 
@@ -56,11 +59,12 @@ function ListResults(props) {
 
   return (
     <TableContainer className={classes.container} component={Paper}>
-      <Table size='small'>
+      <Table size='small' className={classes.table}>
         <TableHead>
           <TableRow>
             {tableFields.map(field => (
               <TableCell
+                className={makeStyles({ cell: { width: props => props.width } })(field).cell}
                 key={field._id}
                 sortDirection={field.name === props.sortingField ? order : false}
               >
@@ -78,14 +82,16 @@ function ListResults(props) {
         <TableBody>
           {props.cards.map(card => (
             <StyledTableRow key={card.id} onClick={() => handleClick(card.name)}>
-              <StyledTooltip
-                className={classes.tooltip}
-                placement='right'
-                TransitionProps={{ timeout: { enter: 0, exit: 0 } }}
-                title={<CardImage card={card} variant='normal' />}
-              >
-                <OnHoverTableCell card={card} />
-              </StyledTooltip>
+              <TableCell>
+                <StyledTooltip
+                  className={classes.tooltip}
+                  placement='right'
+                  TransitionProps={{ timeout: { enter: 0, exit: 0 } }}
+                  title={<CardImage card={card} variant='normal' />}
+                >
+                  <CardImageOnHover card={card} />
+                </StyledTooltip>
+              </TableCell>
               <TableCell>{card.mana_cost}</TableCell>
               <TableCell>{card.type_line}</TableCell>
               <TableCell>{card.rarity}</TableCell>

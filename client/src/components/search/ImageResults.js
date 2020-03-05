@@ -6,8 +6,11 @@ import { CardImage } from '../../components';
 
 const useStyles = makeStyles({
   card: {
-    maxWidth: '18rem',
-    width: matches => (matches ? '100%' : '18rem')
+    maxWidth: '19rem',
+    width: matches => (matches ? '100%' : '19rem')
+  },
+  container: {
+    justifyContent: 'center'
   }
 });
 
@@ -23,7 +26,7 @@ function ImageResults(props) {
   };
 
   return (
-    <Grid container direction='row' spacing={1}>
+    <Grid container className={classes.container} direction='row' spacing={1}>
       {props.cards.map(card => (
         <Grid className={classes.card} key={card.id} item>
           <CardImage onClickHandler={() => handleClick(card.name)} card={card} variant='normal' />
