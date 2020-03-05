@@ -9,7 +9,7 @@ const Card = require('../models/cards');
  * @desc  Get specific card(s)
  */
 router.get('/', (req, res) => {
-  console.log(`handling GET request for query[name=${req.query.name}]`);
+  console.log(`handling GET request for [name=${req.query.name}]`);
   if (!req.query.name) {
     res.send([]);
   }

@@ -2,7 +2,8 @@ import React from 'react';
 import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { CardPage, Search } from '../../components';
+import { CardPage } from '../../components/cards';
+import { SearchRouter } from '../../components/search';
 
 const useStyles = makeStyles({
   container: {
@@ -21,7 +22,7 @@ function Content() {
           <Redirect to='/search' />
         </Route>
         <Route path='/search'>
-          <Search />
+          <SearchRouter />
         </Route>
         <Route path='/cards/:name'>
           <CardPage />

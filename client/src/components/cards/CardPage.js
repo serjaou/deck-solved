@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { CircularProgress, Grid, Paper, useMediaQuery } from '@material-ui/core';
-import { CardDetails, CardImage } from '../components';
 import { useParams } from 'react-router-dom';
+import CardDetails from './CardDetails';
+import CardImage from './CardImage';
 import axios from 'axios';
 
 const useStyles = makeStyles({

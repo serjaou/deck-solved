@@ -3,7 +3,7 @@ import { Box, CircularProgress, Divider, Paper, Typography } from '@material-ui/
 import { Pagination } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDataHandler } from '../../../common';
-import { CardPage } from '../../../components';
+import { CardPage } from '../../cards';
 import ImageResults from './ImageResults';
 import ListResults from './ListResults';
 import ResultsToolbar from './ResultsToolbar';
