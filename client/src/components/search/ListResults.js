@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead } from '@material-ui/core';
-import { TableRow, TableSortLabel, Paper } from '@material-ui/core';
+import { TableRow, TableSortLabel, Tooltip, Paper } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
+import { CardImage } from '../../components';
 import tableFields from './_tableFields';
 
 const useStyles = makeStyles(theme => ({
@@ -10,6 +11,13 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.gray.lighter
   }
 }));
+
+const StyledTooltip = withStyles({
+  tooltip: {
+    backgroundColor: 'transparent',
+    maxWidth: 270
+  }
+})(Tooltip);
 
 const StyledTableRow = withStyles(theme => ({
   root: {
@@ -19,6 +27,14 @@ const StyledTableRow = withStyles(theme => ({
     }
   }
 }))(TableRow);
+
+const OnHoverTableCell = React.forwardRef(function(props, ref) {
+  return (
+    <TableCell {...props} ref={ref}>
+      {props.card.name}
+    </TableCell>
+  );
+});
 
 function ListResults(props) {
   const [order, setOrder] = useState('desc');
@@ -62,7 +78,14 @@ function ListResults(props) {
         <TableBody>
           {props.cards.map(card => (
             <StyledTableRow key={card.id} onClick={() => handleClick(card.name)}>
-              <TableCell>{card.name}</TableCell>
+              <StyledTooltip
+                className={classes.tooltip}
+                placement='right'
+                TransitionProps={{ timeout: { enter: 0, exit: 0 } }}
+                title={<CardImage card={card} variant='normal' />}
+              >
+                <OnHoverTableCell card={card} />
+              </StyledTooltip>
               <TableCell>{card.mana_cost}</TableCell>
               <TableCell>{card.type_line}</TableCell>
               <TableCell>{card.rarity}</TableCell>
