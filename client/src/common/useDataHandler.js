@@ -12,7 +12,7 @@ function useDataHandler(initData = [], sortingFunctions = {}, itemsPerPage = 48)
   const [_data, _setData] = useState(initData);
   const [_page, _setPage] = useState(0);
   const [_itemsPerPage, _setItemsPerPage] = useState(itemsPerPage);
-  const [_sortingField, _setSortingField] = useState(undefined);
+  const [_sortedField, _setSortedField] = useState('');
   const _finalPage = Math.ceil(_data.length / _itemsPerPage);
 
   const setData = data => {
@@ -31,11 +31,11 @@ function useDataHandler(initData = [], sortingFunctions = {}, itemsPerPage = 48)
     }
   };
   const sortByField = field => {
-    if (field === _sortingField) {
+    if (field === _sortedField) {
       _setData([..._data.reverse()]);
     } else if (sortingFunctions[field]) {
       _setData(_data.sort(sortingFunctions[field]));
-      _setSortingField(field);
+      _setSortedField(field);
     }
   };
 
@@ -44,7 +44,7 @@ function useDataHandler(initData = [], sortingFunctions = {}, itemsPerPage = 48)
     finalPage: _finalPage,
     itemsPerPage: _itemsPerPage,
     page: _page,
-    sortingField: _sortingField
+    sortedField: _sortedField
   };
   const dataSetters = {
     setData,

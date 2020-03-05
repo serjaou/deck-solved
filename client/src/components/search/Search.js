@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import SearchPage from './SearchPage';
-import Results from './Results';
+import Results from './results/Results';
 
 function Search() {
   const query = new URLSearchParams(useLocation().search);

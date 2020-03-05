@@ -3,7 +3,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead } from '@materia
 import { TableRow, TableSortLabel, Tooltip, Paper } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-import { CardImage } from '../../components';
+import { CardImage } from '../../../components';
 import tableFields from './_tableFields';
 
 const useStyles = makeStyles(theme => ({
@@ -47,7 +47,7 @@ function ListResults(props) {
   const createSortHandler = field => {
     props.sortByField(field);
     props.setPage(0);
-    if (field === props.sortingField) {
+    if (field === props.sortedField) {
       setOrder(order === 'desc' ? 'asc' : 'desc');
     }
   };
@@ -64,16 +64,16 @@ function ListResults(props) {
           <TableRow>
             {tableFields.map(field => (
               <TableCell
-                className={makeStyles({ cell: { width: props => props.width } })(field).cell}
+                className={makeStyles({ cell: { width: props => props.cellWidth } })(field).cell}
                 key={field._id}
-                sortDirection={field.name === props.sortingField ? order : false}
+                sortDirection={field.name === props.sortedField ? order : false}
               >
                 <TableSortLabel
-                  active={props.sortingField === field.name}
-                  direction={props.sortingField === field.name ? order : 'asc'}
+                  active={props.sortedField === field.name}
+                  direction={props.sortedField === field.name ? order : 'asc'}
                   onClick={() => createSortHandler(field.name)}
                 >
-                  {field.label}
+                  {field.label.toUpperCase()}
                 </TableSortLabel>
               </TableCell>
             ))}
