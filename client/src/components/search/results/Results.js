@@ -26,66 +26,59 @@ const comparingFunc = Object.assign(
 );
 
 function Results(props) {
-  const [
-    { items: results, finalPage, page, sortedField },
-    { setData, setPage, sortByField }
-  ] = useDataHandler(undefined, comparingFunc);
+  const results = useDataHandler(undefined, comparingFunc);
   const [dataLoaded, setDataLoaded] = useState(false);
   const [format, setFormat] = useState('images');
   const classes = useStyles();
 
   useEffect(() => {
     axios.get('api/cards/', { params: { name: props.query } }).then(function(response) {
-      setData(response.data);
+      results.setData(response.data);
       setDataLoaded(true);
     });
-    return setData([]);
+    return results.setData([]);
     // eslint-disable-next-line
   }, []);
 
   const handlePageChange = (event, value) => {
-    setPage(value - 1);
+    results.setPage(value - 1);
   };
 
-  return dataLoaded && results.length === 1 ? (
-    <CardPage card={results[0]} />
+  return dataLoaded && results.data.length === 1 ? (
+    <CardPage card={results.data[0]} />
   ) : dataLoaded ? (
     <Paper className={classes.page} elevation={2}>
       <ResultsToolbar
+        results={results}
         format={format}
         setFormat={setFormat}
-        page={page}
-        setPage={setPage}
-        sortedField={sortedField}
-        sortByField={sortByField}
         tableFields={tableFields}
-        finalPage={finalPage}
         query={props.query}
       />
       <Divider />
       <Box className={classes.centeredContainer}>
         {format === 'images' ? (
           <ImageResults
-            cards={results}
-            setPage={setPage}
-            sortedField={sortedField}
-            sortByField={sortByField}
+            cards={results.data}
+            setPage={results.setPage}
+            sortedField={results.sortedField}
+            sortByField={results.sortByField}
           />
         ) : (
           <ListResults
-            cards={results}
-            setPage={setPage}
-            sortedField={sortedField}
-            sortByField={sortByField}
+            cards={results.data}
+            setPage={results.setPage}
+            sortedField={results.sortedField}
+            sortByField={results.sortByField}
           />
         )}
       </Box>
       <Divider />
       <Box className={classes.centeredContainer}>
         <Pagination
-          count={finalPage}
+          count={results.finalPage}
           color='secondary'
-          page={page + 1}
+          page={results.currentPage + 1}
           onChange={handlePageChange}
         />
       </Box>

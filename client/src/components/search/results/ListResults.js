@@ -7,19 +7,12 @@ import { CardImage } from '../../../components';
 import tableFields from './_tableFields';
 
 const useStyles = makeStyles(theme => ({
-  container: {
-    backgroundColor: theme.palette.gray.lighter
-  },
-  table: {
-    tableLayout: 'fixed'
-  }
+  container: { backgroundColor: theme.palette.gray.lighter },
+  table: { tableLayout: 'fixed' }
 }));
 
 const StyledTooltip = withStyles({
-  tooltip: {
-    backgroundColor: 'transparent',
-    maxWidth: 270
-  }
+  tooltip: { backgroundColor: 'transparent', maxWidth: 270 }
 })(Tooltip);
 
 const StyledTableRow = withStyles(theme => ({
@@ -45,11 +38,11 @@ function ListResults(props) {
   const classes = useStyles();
 
   const createSortHandler = field => {
-    props.sortByField(field);
-    props.setPage(0);
     if (field === props.sortedField) {
       setOrder(order === 'desc' ? 'asc' : 'desc');
     }
+    props.sortByField(field);
+    props.setPage(0);
   };
   const handleClick = name => {
     history.push({

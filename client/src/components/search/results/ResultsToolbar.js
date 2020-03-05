@@ -23,10 +23,10 @@ function ResultsToolbar(props) {
     props.setFormat(format);
   };
   const handlePageChange = (event, value) => {
-    props.setPage(value - 1);
+    props.results.setPage(value - 1);
   };
   const handleSelect = (event, value) => {
-    props.sortByField(event.target.value);
+    props.results.sortByField(event.target.value);
   };
 
   return (
@@ -40,7 +40,11 @@ function ResultsToolbar(props) {
             <Typography className={classes.filterText} display='inline' variant='subtitle1'>
               <strong>filter by:&nbsp;</strong>
             </Typography>
-            <Select className={classes.select} value={props.sortedField} onChange={handleSelect}>
+            <Select
+              className={classes.select}
+              value={props.results.sortedField}
+              onChange={handleSelect}
+            >
               {props.tableFields.map(field => (
                 <MenuItem dense key={field._id} value={field.name}>
                   {field.label}
@@ -66,9 +70,9 @@ function ResultsToolbar(props) {
       </ToggleButtonGroup>
       <Box className={classes.pagination}>
         <Pagination
-          count={props.finalPage}
+          count={props.results.finalPage}
           color='secondary'
-          page={props.page + 1}
+          page={props.results.currentPage + 1}
           onChange={handlePageChange}
         />
       </Box>
