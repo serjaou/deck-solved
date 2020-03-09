@@ -1,18 +1,20 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(props => ({
   symbolImage: {
-    height: '1rem',
-    width: '1rem',
-    borderRadius: '0.5rem',
-    boxShadow: '-1px 1px 0 rgba(0,0,0,0.85)'
+    boxShadow: '-1px 1px 0 rgba(0,0,0,0.85)',
+    display: 'inline-block',
+    margin: '0 0.0625rem',
+    borderRadius: props => `${props.size / 2}rem`,
+    height: props => `${props.size}rem`,
+    width: props => `${props.size}rem`
   }
-});
+}));
 
 function CardSymbol(props) {
-  const classes = useStyles();
-  const baredSymbol = props.symbol.slice(1, -1);
+  const classes = useStyles(props);
+  const baredSymbol = props.symbol.match(/\w/g).join('');
 
   return (
     <img
