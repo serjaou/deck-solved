@@ -22,12 +22,12 @@ const useStyles = makeStyles({
   progress: { margin: '14rem 0 20rem' },
   resultsText: { fontSize: '1.125rem', padding: '1.25rem 0' }
 });
-const comparingFunc = Object.assign(
-  ...tableFields.map(field => ({ [field.name]: field.comparingFunc }))
+const sortingFunctions = Object.assign(
+  ...tableFields.map(field => ({ [field.name]: field.compare.bind(field) }))
 );
 
 function Results(props) {
-  const results = useDataHandler(undefined, comparingFunc);
+  const results = useDataHandler(undefined, sortingFunctions);
   const [dataLoaded, setDataLoaded] = useState(false);
   const [format, setFormat] = useState('images');
   const classes = useStyles();

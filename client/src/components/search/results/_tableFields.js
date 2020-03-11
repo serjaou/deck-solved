@@ -4,8 +4,8 @@ export default [
     name: 'name',
     label: 'name',
     cellWidth: '14em',
-    comparingFunc(a, b) {
-      return a.name && b.name ? a.name.localeCompare(b.name) : 0;
+    compare(a, b) {
+      return a.name ? a.name.localeCompare(b.name) : 0;
     }
   },
   {
@@ -13,8 +13,12 @@ export default [
     name: 'mana_cost',
     label: 'mana cost',
     cellWidth: '8em',
-    comparingFunc(a, b) {
-      return a.mana_cost && b.mana_cost ? a.mana_cost.localeCompare(b.mana_cost) : 0;
+    compare(a, b) {
+      return a.cmc === b.cmc
+        ? a.mana_cost
+          ? a.mana_cost.localeCompare(b.mana_cost)
+          : 0
+        : a.cmc - b.cmc;
     }
   },
   {
@@ -22,8 +26,8 @@ export default [
     name: 'type_line',
     label: 'type',
     cellWidth: '16em',
-    comparingFunc(a, b) {
-      return a.type_line && b.type_line ? a.type_line.localeCompare(b.type_line) : 0;
+    compare(a, b) {
+      return a.type_line ? a.type_line.localeCompare(b.type_line) : 0;
     }
   },
   {
@@ -31,8 +35,9 @@ export default [
     name: 'rarity',
     label: 'rarity',
     cellWidth: '8em',
-    comparingFunc(a, b) {
-      return a.rarity && b.rarity ? a.rarity.localeCompare(b.rarity) : 0;
+    weight: { common: 0, uncommon: 1, rare: 2, mythic: 3 },
+    compare(a, b) {
+      return a.rarity && b.rarity ? this.weight[a.rarity] - this.weight[b.rarity] : 0;
     }
   },
   {
@@ -40,8 +45,12 @@ export default [
     name: 'power',
     label: 'power/\ntoughness',
     cellWidth: '6em',
-    comparingFunc(a, b) {
-      return a.power && b.power ? a.power.localeCompare(b.power) : 0;
+    compare(a, b) {
+      return a.power
+        ? a.power === b.power
+          ? a.toughness.localeCompare(b.toughness)
+          : a.power.localeCompare(b.power)
+        : 0;
     }
   },
   {
@@ -49,8 +58,8 @@ export default [
     name: 'artist',
     label: 'artist',
     cellWidth: '10em',
-    comparingFunc(a, b) {
-      return a.artist && b.artist ? a.artist.localeCompare(b.artist) : 0;
+    compare(a, b) {
+      return a.artist ? a.artist.localeCompare(b.artist) : 0;
     }
   }
 ];
