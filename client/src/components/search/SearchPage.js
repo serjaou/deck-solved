@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Container, InputBase, Paper } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
+import useSubmitSearch from './useSubmitSearch';
 
 const useStyles = makeStyles({
   searchButton: {
@@ -23,20 +23,15 @@ const useStyles = makeStyles({
 
 function SearchPage() {
   const classes = useStyles();
-  const [value, setValue] = useState('');
-  const history = useHistory();
+  const [value, setValue, handleSubmit] = useSubmitSearch();
 
-  const handleSubmit = () => {
-    history.push({
-      pathname: '/search',
-      search: `name=${value}`
-    });
-  };
   const handleChange = event => {
     setValue(event.target.value);
   };
   const handleKeyPress = event => {
-    if (event.key === 'Enter') handleSubmit();
+    if (event.key === 'Enter') {
+      handleSubmit();
+    }
   };
 
   return (
