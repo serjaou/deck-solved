@@ -3,7 +3,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead } from '@materia
 import { TableRow, TableSortLabel, Tooltip, Paper } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-import { CardImage } from '../../cards';
+import { CardImage, CardText } from '../../cards';
 import tableFields from './_tableFields';
 
 const useStyles = makeStyles(theme => ({
@@ -85,7 +85,7 @@ function ListResults(props) {
                   <CardImageOnHover card={card} />
                 </StyledTooltip>
               </TableCell>
-              <TableCell>{card.mana_cost}</TableCell>
+              <TableCell>{card.mana_cost && <CardText text={card.mana_cost} />}</TableCell>
               <TableCell>{card.type_line}</TableCell>
               <TableCell>{card.rarity}</TableCell>
               <TableCell>{card.power && card.power + '/' + card.toughness}</TableCell>
