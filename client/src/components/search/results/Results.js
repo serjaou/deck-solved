@@ -9,6 +9,7 @@ import ListResults from './ListResults';
 import ResultsToolbar from './ResultsToolbar';
 import tableFields from './_tableFields';
 import axios from 'axios';
+import $ from 'jquery';
 
 const useStyles = makeStyles({
   centeredContainer: {
@@ -42,6 +43,7 @@ function Results(props) {
 
   const handlePageChange = (event, value) => {
     results.setPage(value - 1);
+    $('html,body').scrollTop(0);
   };
 
   return dataLoaded && results.data.length === 1 ? (
