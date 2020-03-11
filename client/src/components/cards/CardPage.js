@@ -5,16 +5,17 @@ import FlipToFrontOutlined from '@material-ui/icons/FlipToFrontOutlined';
 import { useParams } from 'react-router-dom';
 import CardDetails from './CardDetails';
 import CardImage from './CardImage';
+import CardRulings from './CardRulings';
 import axios from 'axios';
 
 const useStyles = makeStyles({
   image: {
-    height: matches => (matches ? '100%' : '38.25rem'),
+    height: matches => (matches.sm ? '100%' : '38.25rem'),
     maxWidth: '26rem',
     width: '100%'
   },
   grid: {
-    justifyContent: 'center'
+    justifyContent: matches => (matches.md ? 'center' : 'space-between')
   },
   paper: {
     backgroundImage: 'url("/bg-paper.png")',
@@ -30,12 +31,12 @@ function CardPage(props) {
   const [cardData, setCardData] = useState(props.card ? props.card : undefined);
   const [dataLoaded, setDataLoaded] = useState(props.card ? true : false);
   const [currentFace, setCurrentFace] = useState('front');
-  const matchesSm = useMediaQuery('(max-width:600px)');
-  const matchesMd = useMediaQuery('(max-width:960px)');
-  const classes = useStyles(matchesSm);
+  const sm = useMediaQuery('(max-width:600px)');
+  const md = useMediaQuery('(max-width:960px)');
+  const classes = useStyles({ sm, md });
 
   // If the component it is called with empty data,
-  // infer the card info it from the URL params and obtain the data from the server.
+  // infer the card info from the URL params and send a request to the server.
   const { name: query } = useParams();
   useEffect(() => {
     if (query) {
@@ -57,9 +58,9 @@ function CardPage(props) {
       : { front: cardData };
 
   return dataLoaded ? (
-    <Paper className={classes.paper} elevation={3}>
-      <Grid container className={matchesMd ? classes.grid : undefined} direction='row' spacing={2}>
-        <Grid item xs={12} md={6} className={classes.image}>
+    <Paper className={classes.paper} elevation={2}>
+      <Grid container className={classes.grid} direction='row' spacing={2}>
+        <Grid item xs={12} md={4} className={classes.image}>
           <CardImage card={card[currentFace]} variant='png' />
           {cardData.layout === 'transform' && (
             <div className={classes.transform}>
@@ -75,8 +76,11 @@ function CardPage(props) {
             </div>
           )}
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={4}>
           <CardDetails card={card[currentFace]} />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <CardRulings oracle_id={cardData.oracle_id} />
         </Grid>
       </Grid>
     </Paper>

@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   }
 });
 
-function CardPage(props) {
+function CardDetails(props) {
   const classes = useStyles();
 
   return (
@@ -78,4 +78,4 @@ function CardPage(props) {
   );
 }
 
-export default CardPage;
+export default CardDetails;
