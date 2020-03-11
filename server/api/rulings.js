@@ -9,7 +9,7 @@ const Ruling = require('../models/rulings');
  * @desc  Get the rulings for a specific card
  */
 router.get('/', (req, res) => {
-  console.log(`handling "/rulings" GET request for [oracle_id=${req.query.name}]`);
+  console.log(`handling "/rulings" GET request for [oracle_id=${req.query.oracle_id}]`);
   if (!req.query.oracle_id) {
     res.send([]);
   }
