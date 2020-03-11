@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Chip, Divider, Grid, Typography } from '@material-ui/core';
 import CardText from './CardText';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   body: {
     padding: '1rem 0 1rem 1rem',
     fontWeight: '400'
@@ -23,9 +23,9 @@ const useStyles = makeStyles(theme => ({
     fontWeight: '700'
   },
   grid: {
-    padding: '0.25rem 1rem'
+    padding: '0.25rem 1rem 1rem'
   }
-}));
+});
 
 function CardDetails(props) {
   const classes = useStyles();
@@ -89,6 +89,23 @@ function CardDetails(props) {
               color='secondary'
               label={<strong>{format.charAt(0).toUpperCase() + format.slice(1)}</strong>}
               size='small'
+            />
+          </Grid>
+        ))}
+      </Grid>
+      <Divider />
+      <Typography className={classes.subtitle} variant='subtitle2'>
+        <strong>Related URLs:</strong>
+      </Typography>
+      <Grid container className={classes.grid} direction='row' spacing={1}>
+        {Object.keys(props.cardData.related_uris).map(uri => (
+          <Grid item key={uri}>
+            <Chip
+              clickable
+              label={<strong>{uri.replace(/_/g, ' ')}</strong>}
+              size='small'
+              onClick={() => window.open(props.cardData.related_uris[uri], '_blank')}
+              variant='outlined'
             />
           </Grid>
         ))}
