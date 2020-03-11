@@ -18,7 +18,11 @@ function CardImage(props) {
   return (
     <img
       className={classes.image}
-      src={props.card.image_uris ? props.card.image_uris[props.variant] : ''}
+      src={
+        props.card.layout === 'transform'
+          ? props.card.card_faces[0].image_uris[props.variant]
+          : props.card.image_uris[props.variant]
+      }
       alt={props.card.name ? props.card.name : ''}
       onClick={props.onClickHandler ? props.onClickHandler : undefined}
     />

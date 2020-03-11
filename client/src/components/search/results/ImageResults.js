@@ -21,7 +21,7 @@ function ImageResults(props) {
 
   const handleClick = name => {
     history.push({
-      pathname: `/cards/${name}`
+      pathname: `/cards/${encodeURIComponent(name)}`
     });
   };
 

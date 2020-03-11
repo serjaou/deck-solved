@@ -47,9 +47,11 @@ function CardPage(props) {
       <div className={classes.body}>
         <CardText text={props.card.oracle_text} />
       </div>
-      <Typography className={classes.flavorText} variant='body2'>
-        {props.card.flavor_text}
-      </Typography>
+      {props.card.flavor_text && (
+        <Typography className={classes.flavorText} variant='body2'>
+          {props.card.flavor_text}
+        </Typography>
+      )}
       <Divider />
       {props.card.power && (
         <div>
