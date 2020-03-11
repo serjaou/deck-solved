@@ -7,6 +7,7 @@ import { CardImage, CardText } from '../../cards';
 import tableFields from './_tableFields';
 
 const useStyles = makeStyles(theme => ({
+  cell: { overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' },
   container: { backgroundColor: theme.palette.gray.lighter },
   table: { tableLayout: 'fixed' }
 }));
@@ -26,7 +27,15 @@ const StyledTableRow = withStyles(theme => ({
 
 const CardImageOnHover = React.forwardRef(function(props, ref) {
   return (
-    <div style={{ display: 'inline-block' }} {...props} ref={ref}>
+    <div
+      style={{
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis'
+      }}
+      {...props}
+      ref={ref}
+    >
       {props.card.name}
     </div>
   );
@@ -85,11 +94,15 @@ function ListResults(props) {
                   <CardImageOnHover card={card} />
                 </StyledTooltip>
               </TableCell>
-              <TableCell>{card.mana_cost && <CardText text={card.mana_cost} />}</TableCell>
-              <TableCell>{card.type_line}</TableCell>
-              <TableCell>{card.rarity}</TableCell>
-              <TableCell>{card.power && card.power + '/' + card.toughness}</TableCell>
-              <TableCell>{card.artist}</TableCell>
+              <TableCell className={classes.cell}>
+                {card.mana_cost && <CardText text={card.mana_cost} />}
+              </TableCell>
+              <TableCell className={classes.cell}>{card.type_line}</TableCell>
+              <TableCell className={classes.cell}>{card.rarity}</TableCell>
+              <TableCell className={classes.cell}>
+                {card.power && card.power + '/' + card.toughness}
+              </TableCell>
+              <TableCell className={classes.cell}>{card.artist}</TableCell>
             </StyledTableRow>
           ))}
         </TableBody>
