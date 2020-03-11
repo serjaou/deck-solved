@@ -9,7 +9,7 @@ const Card = require('../models/cards');
  * @desc  Get specific card(s)
  */
 router.get('/', (req, res) => {
-  console.log(`handling GET request for [name=${req.query.name}]`);
+  console.log(`handling "/cards" GET request for [name=${req.query.name}]`);
   if (!req.query.name) {
     res.send([]);
   }
@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
  * @desc  Get a specific card
  */
 router.get('/:card', (req, res) => {
-  console.log(`handling GET request for [name=${req.params.card}]`);
+  console.log(`handling "/cards:card" GET request for [name=${req.params.card}]`);
   Card.findOne({ name: req.params.card }).then(card => res.send(card));
 });
 

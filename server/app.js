@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cards = require('./api/cards');
+const rulings = require('./api/rulings');
 
 const app = express();
 
@@ -20,6 +21,7 @@ mongoose
 
 // Use cards API
 app.use('/api/cards', cards);
+app.use('/api/rulings', rulings);
 
 const port = process.env.PORT || 5000;
 
