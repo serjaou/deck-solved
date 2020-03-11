@@ -1,9 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Divider, Typography } from '@material-ui/core';
+import { Chip, Divider, Grid, Typography } from '@material-ui/core';
 import CardText from './CardText';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   body: {
     padding: '1rem 0 1rem 1rem',
     fontWeight: '400'
@@ -21,8 +21,11 @@ const useStyles = makeStyles({
     marginTop: '1rem',
     padding: '1rem 0 1rem 1rem',
     fontWeight: '700'
+  },
+  grid: {
+    padding: '0.25rem 1rem'
   }
-});
+}));
 
 function CardDetails(props) {
   const classes = useStyles();
@@ -74,6 +77,22 @@ function CardDetails(props) {
         <strong>Artist: </strong>
         <em>{props.card.artist}</em>
       </Typography>
+      <Divider />
+      <Typography className={classes.subtitle} variant='subtitle2'>
+        <strong>Legalities:</strong>
+      </Typography>
+      <Grid container className={classes.grid} direction='row' spacing={1}>
+        {Object.keys(props.cardData.legalities).map(format => (
+          <Grid item key={format}>
+            <Chip
+              disabled={props.cardData.legalities[format] === 'not_legal'}
+              color='secondary'
+              label={<strong>{format.charAt(0).toUpperCase() + format.slice(1)}</strong>}
+              size='small'
+            />
+          </Grid>
+        ))}
+      </Grid>
     </div>
   );
 }

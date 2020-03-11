@@ -25,7 +25,8 @@ function CardRulings(props) {
   }, [props.oracle_id]);
 
   return (
-    dataLoaded && (
+    dataLoaded &&
+    rulingData.length > 0 && (
       <Paper className={classes.paper} elevation={4}>
         <List>
           <ListItem dense>

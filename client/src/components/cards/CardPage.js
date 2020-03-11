@@ -77,7 +77,7 @@ function CardPage(props) {
           )}
         </Grid>
         <Grid item xs={12} md={4}>
-          <CardDetails card={card[currentFace]} />
+          <CardDetails cardData={cardData} card={card[currentFace]} />
         </Grid>
         <Grid item xs={12} md={4}>
           <CardRulings oracle_id={cardData.oracle_id} />
