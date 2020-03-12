@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Container, Icon, InputBase } from '@material-ui/core';
 import { InputAdornment, Paper, Toolbar, Typography } from '@material-ui/core';
+import { useLocation } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
 import NavButtons from './NavButtons';
 import { useSubmitSearch } from '../search';
@@ -16,6 +17,7 @@ const useStyles = makeStyles(theme => ({
 
 function NavBar() {
   const classes = useStyles();
+  const location = useLocation();
   const [value, setValue, handleSubmit] = useSubmitSearch();
 
   const handleChange = event => {
@@ -35,22 +37,24 @@ function NavBar() {
           <Typography variant='h6' className={classes.title}>
             Deck Solved
           </Typography>
-          <Paper className={classes.paper}>
-            <InputBase
-              className={classes.input}
-              value={value}
-              onChange={handleChange}
-              onKeyPress={handleKeyPress}
-              placeholder='Search...'
-              endAdornment={
-                <InputAdornment position='end'>
-                  <Icon className={classes.icon}>
-                    <SearchIcon />
-                  </Icon>
-                </InputAdornment>
-              }
-            />
-          </Paper>
+          {!(location.pathname === '/search' && location.search === '') && (
+            <Paper className={classes.paper}>
+              <InputBase
+                className={classes.input}
+                value={value}
+                onChange={handleChange}
+                onKeyPress={handleKeyPress}
+                placeholder='Search...'
+                endAdornment={
+                  <InputAdornment position='end'>
+                    <Icon className={classes.icon}>
+                      <SearchIcon />
+                    </Icon>
+                  </InputAdornment>
+                }
+              />
+            </Paper>
+          )}
           <NavButtons />
         </Toolbar>
       </Container>
