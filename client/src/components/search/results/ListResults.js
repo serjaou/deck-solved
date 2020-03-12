@@ -47,11 +47,11 @@ function ListResults(props) {
   const classes = useStyles();
 
   const createSortHandler = field => {
-    if (field === props.sortedField) {
+    if (field === props.dataSource.sortedField) {
       setOrder(order === 'desc' ? 'asc' : 'desc');
     }
-    props.sortByField(field);
-    props.setPage(0);
+    props.dataSource.sortByField(field);
+    props.dataSource.setPage(0);
   };
   const handleClick = name => {
     history.push({
@@ -68,11 +68,11 @@ function ListResults(props) {
               <TableCell
                 className={makeStyles({ cell: { width: props => props.cellWidth } })(field).cell}
                 key={field._id}
-                sortDirection={field.name === props.sortedField ? order : false}
+                sortDirection={field.name === props.dataSource.sortedField ? order : false}
               >
                 <TableSortLabel
-                  active={props.sortedField === field.name}
-                  direction={props.sortedField === field.name ? order : 'asc'}
+                  active={props.dataSource.sortedField === field.name}
+                  direction={props.dataSource.sortedField === field.name ? order : 'asc'}
                   onClick={() => createSortHandler(field.name)}
                 >
                   {field.label.toUpperCase()}
@@ -82,7 +82,7 @@ function ListResults(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {props.cards.map(card => (
+          {props.dataSource.data.map(card => (
             <StyledTableRow key={card.id} onClick={() => handleClick(card.name)}>
               <TableCell>
                 <StyledTooltip

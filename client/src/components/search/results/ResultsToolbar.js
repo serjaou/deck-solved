@@ -10,10 +10,10 @@ const useStyles = makeStyles({
   filterText: { verticalAlign: 'middle' },
   formatButton: { maxHeight: '2rem' },
   container: { display: 'flex', flexWrap: 'wrap', padding: '0.75rem 0' },
-  pagination: { margin: '0.25rem', padding: '0.25rem' },
-  resultsText: { flexGrow: '1', fontSize: '1.125rem', margin: '0.25rem 0', padding: '0.375rem' },
+  pagination: { display: 'flex', margin: '0.25rem', padding: '0.25rem' },
+  resultsText: { fontSize: '1.125rem', padding: '1.25rem 0 0' },
   select: { padding: '0.5rem', maxHeight: '2.25rem', minWidth: '12rem' },
-  selectContainer: { margin: '0.25rem 1.5rem 0.25rem 0' }
+  selectContainer: { flexGrow: '1', margin: '0.25rem 1.5rem 0.25rem 0' }
 });
 
 function ResultsToolbar(props) {
@@ -23,60 +23,71 @@ function ResultsToolbar(props) {
     props.setFormat(format);
   };
   const handlePageChange = (event, value) => {
-    props.results.setPage(value - 1);
+    props.dataSource.setPage(value - 1);
+  };
+  const changeOnItemsPerPage = (event, value) => {
+    props.dataSource.setItemsPerPage(event.target.value);
   };
   const handleSelect = (event, value) => {
-    props.results.sortByField(event.target.value);
+    props.dataSource.sortByField(event.target.value);
   };
 
   return (
-    <Box className={classes.container}>
+    <div>
       <Typography className={classes.resultsText} variant='body1'>
         Showing results for <strong>"{props.query}"</strong>.
       </Typography>
-      <Box className={classes.selectContainer}>
-        {props.format === 'images' && (
-          <div>
-            <Typography className={classes.filterText} display='inline' variant='subtitle1'>
-              <strong>filter by:&nbsp;</strong>
-            </Typography>
-            <Select
-              className={classes.select}
-              value={props.results.sortedField}
-              onChange={handleSelect}
-            >
-              {props.tableFields.map(field => (
-                <MenuItem dense key={field._id} value={field.name}>
-                  {field.label}
-                </MenuItem>
-              ))}
-            </Select>
-          </div>
-        )}
+      <Box className={classes.container}>
+        <ToggleButtonGroup
+          className={classes.toggleButtons}
+          size='small'
+          value={props.format}
+          onChange={handleFormat}
+          exclusive
+        >
+          <ToggleButton className={classes.formatButton} value='list'>
+            <ListIcon />
+          </ToggleButton>
+          <ToggleButton className={classes.formatButton} value='images'>
+            <AppsIcon />
+          </ToggleButton>
+        </ToggleButtonGroup>
+        <Box className={classes.selectContainer}>
+          {props.format === 'images' && (
+            <div>
+              <Typography className={classes.filterText} display='inline' variant='subtitle1'>
+                <strong>filter by:&nbsp;</strong>
+              </Typography>
+              <Select
+                className={classes.select}
+                value={props.dataSource.sortedField}
+                onChange={handleSelect}
+              >
+                {props.tableFields.map(field => (
+                  <MenuItem dense key={field._id} value={field.name}>
+                    {field.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </div>
+          )}
+        </Box>
+        <Box className={classes.pagination}>
+          <Pagination
+            count={props.dataSource.finalPage}
+            color='secondary'
+            page={props.dataSource.currentPage + 1}
+            onChange={handlePageChange}
+          />
+          <Select value={props.dataSource.itemsPerPage} onChange={changeOnItemsPerPage}>
+            <MenuItem value={12}>12</MenuItem>
+            <MenuItem value={24}>24</MenuItem>
+            <MenuItem value={48}>48</MenuItem>
+            <MenuItem value={96}>96</MenuItem>
+          </Select>
+        </Box>
       </Box>
-      <ToggleButtonGroup
-        className={classes.toggleButtons}
-        size='small'
-        value={props.format}
-        onChange={handleFormat}
-        exclusive
-      >
-        <ToggleButton className={classes.formatButton} value='list'>
-          <ListIcon />
-        </ToggleButton>
-        <ToggleButton className={classes.formatButton} value='images'>
-          <AppsIcon />
-        </ToggleButton>
-      </ToggleButtonGroup>
-      <Box className={classes.pagination}>
-        <Pagination
-          count={props.results.finalPage}
-          color='secondary'
-          page={props.results.currentPage + 1}
-          onChange={handlePageChange}
-        />
-      </Box>
-    </Box>
+    </div>
   );
 }
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Box, CircularProgress, Divider, Paper, Typography } from '@material-ui/core';
+import { Box, CircularProgress, Divider, MenuItem, Paper, Select } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDataHandler } from '../../../common';
@@ -27,18 +28,18 @@ const sortingFunctions = Object.assign(
 );
 
 function Results(props) {
-  const results = useDataHandler(undefined, sortingFunctions);
+  const dataSource = useDataHandler(undefined, sortingFunctions);
   const [dataLoaded, setDataLoaded] = useState(false);
   const [format, setFormat] = useState('images');
   const classes = useStyles();
 
   useEffect(() => {
     axios.get('api/cards/', { params: { name: props.query } }).then(function(response) {
-      results.setData(response.data);
+      dataSource.setData(response.data);
       setDataLoaded(true);
     });
     return () => {
-      results.setData([]);
+      dataSource.setData([]);
       setDataLoaded(false);
       setFormat('images');
     };
@@ -46,16 +47,19 @@ function Results(props) {
   }, [props.query]);
 
   const handlePageChange = (event, value) => {
-    results.setPage(value - 1);
+    dataSource.setPage(value - 1);
     $('html,body').scrollTop(0);
   };
+  const changeOnItemsPerPage = (event, value) => {
+    dataSource.setItemsPerPage(event.target.value);
+  };
 
-  return dataLoaded && results.data.length === 1 ? (
-    <CardPage card={results.data[0]} />
+  return dataLoaded && dataSource.data.length === 1 ? (
+    <CardPage card={dataSource.data[0]} />
   ) : dataLoaded ? (
     <Paper className={classes.page} elevation={2}>
       <ResultsToolbar
-        results={results}
+        dataSource={dataSource}
         format={format}
         setFormat={setFormat}
         tableFields={tableFields}
@@ -64,29 +68,25 @@ function Results(props) {
       <Divider />
       <Box className={classes.centeredContainer}>
         {format === 'images' ? (
-          <ImageResults
-            cards={results.data}
-            setPage={results.setPage}
-            sortedField={results.sortedField}
-            sortByField={results.sortByField}
-          />
+          <ImageResults cards={dataSource.data} />
         ) : (
-          <ListResults
-            cards={results.data}
-            setPage={results.setPage}
-            sortedField={results.sortedField}
-            sortByField={results.sortByField}
-          />
+          <ListResults dataSource={dataSource} />
         )}
       </Box>
       <Divider />
       <Box className={classes.centeredContainer}>
         <Pagination
-          count={results.finalPage}
+          count={dataSource.finalPage}
           color='secondary'
-          page={results.currentPage + 1}
+          page={dataSource.currentPage + 1}
           onChange={handlePageChange}
         />
+        <Select value={dataSource.itemsPerPage} onChange={changeOnItemsPerPage}>
+          <MenuItem value={12}>12</MenuItem>
+          <MenuItem value={24}>24</MenuItem>
+          <MenuItem value={48}>48</MenuItem>
+          <MenuItem value={96}>96</MenuItem>
+        </Select>
       </Box>
     </Paper>
   ) : (

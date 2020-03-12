@@ -28,6 +28,7 @@ function useDataHandler(data = [], sortingFunctions = {}, itemsPerPage = 48) {
   const setItemsPerPage = itemsPerPage => {
     if (!isNaN(itemsPerPage) && itemsPerPage > 0) {
       _setItemsPerPage(itemsPerPage);
+      _setPage(0);
     }
   };
   const sortByField = field => {
