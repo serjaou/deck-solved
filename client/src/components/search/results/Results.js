@@ -37,9 +37,13 @@ function Results(props) {
       results.setData(response.data);
       setDataLoaded(true);
     });
-    return results.setData([]);
+    return () => {
+      results.setData([]);
+      setDataLoaded(false);
+      setFormat('images');
+    };
     // eslint-disable-next-line
-  }, []);
+  }, [props.query]);
 
   const handlePageChange = (event, value) => {
     results.setPage(value - 1);

@@ -45,6 +45,11 @@ function CardPage(props) {
         setDataLoaded(true);
       });
     }
+    return () => {
+      setCardData([]);
+      setDataLoaded(false);
+      setCurrentFace('front');
+    };
   }, [query]);
 
   const handleClick = () => {
