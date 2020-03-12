@@ -19,7 +19,7 @@ const useStyles = makeStyles({
 function NavButtons() {
   const classes = useStyles();
   const history = useHistory();
-  const matches = useMediaQuery('(max-width:600px)');
+  const matches = useMediaQuery('(max-width:694px)');
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const openMenu = event => {
