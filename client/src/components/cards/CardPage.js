@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { Button, CircularProgress, Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, CircularProgress, Grid, Paper, useMediaQuery } from '@material-ui/core';
-import FlipToFrontOutlined from '@material-ui/icons/FlipToFrontOutlined';
 import { useParams } from 'react-router-dom';
+import FlipToFrontOutlined from '@material-ui/icons/FlipToFrontOutlined';
 import CardDetails from './CardDetails';
 import CardImage from './CardImage';
 import CardRulings from './CardRulings';
@@ -10,12 +10,11 @@ import axios from 'axios';
 
 const useStyles = makeStyles({
   image: {
-    height: matches => (matches.sm ? '100%' : '38.25rem'),
     maxWidth: '26rem',
     width: '100%'
   },
   grid: {
-    justifyContent: matches => (matches.md ? 'center' : 'space-between')
+    justifyContent: 'center'
   },
   paper: {
     backgroundImage: 'url("/bg-paper.png")',
@@ -31,9 +30,7 @@ function CardPage(props) {
   const [cardData, setCardData] = useState(props.card ? props.card : undefined);
   const [dataLoaded, setDataLoaded] = useState(props.card ? true : false);
   const [currentFace, setCurrentFace] = useState('front');
-  const sm = useMediaQuery('(max-width:600px)');
-  const md = useMediaQuery('(max-width:960px)');
-  const classes = useStyles({ sm, md });
+  const classes = useStyles();
 
   // If the component it is called with empty data,
   // infer the card info from the URL params and send a request to the server.
@@ -64,8 +61,8 @@ function CardPage(props) {
 
   return dataLoaded ? (
     <Paper className={classes.paper} elevation={2}>
-      <Grid container className={classes.grid} direction='row' spacing={2}>
-        <Grid item xs={12} md={4} className={classes.image}>
+      <Grid container className={classes.grid} spacing={2}>
+        <Grid item xs={12} sm={6} md={4} className={classes.image}>
           <CardImage card={card[currentFace]} variant='png' />
           {cardData.layout === 'transform' && (
             <div className={classes.transform}>
@@ -81,10 +78,10 @@ function CardPage(props) {
             </div>
           )}
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} sm={6} md={4}>
           <CardDetails cardData={cardData} card={card[currentFace]} />
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} sm={12} md={4}>
           <CardRulings oracle_id={cardData.oracle_id} />
         </Grid>
       </Grid>
