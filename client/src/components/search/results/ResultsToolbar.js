@@ -35,7 +35,9 @@ function ResultsToolbar(props) {
   return (
     <div>
       <Typography className={classes.resultsText} variant='body1'>
-        Showing results for <strong>"{props.query}"</strong>.
+        {typeof props.query === 'string'
+          ? `Showing results for ${props.query}.`
+          : 'Showing results.'}
       </Typography>
       <Box className={classes.container}>
         <ToggleButtonGroup

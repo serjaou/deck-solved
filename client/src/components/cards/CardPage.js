@@ -34,20 +34,27 @@ function CardPage(props) {
 
   // If the component it is called with empty data,
   // infer the card info from the URL params and send a request to the server.
-  const { name: query } = useParams();
+  const { name } = useParams();
   useEffect(() => {
-    if (query) {
-      axios.get(`/api/cards/${query}`).then(response => {
-        setCardData(response.data);
-        setDataLoaded(true);
-      });
+    if (name) {
+      axios
+        .get('/api/cards/', {
+          params: { name: decodeURIComponent(name) }
+        })
+        .then(
+          response => {
+            setCardData(response.data[0]);
+            setDataLoaded(true);
+          },
+          error => console.log(error)
+        );
     }
     return () => {
       setCardData([]);
       setDataLoaded(false);
       setCurrentFace('front');
     };
-  }, [query]);
+  }, [name]);
 
   const handleClick = () => {
     setCurrentFace(currentFace === 'front' ? 'back' : 'front');

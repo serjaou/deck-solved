@@ -18,10 +18,21 @@ function CardRulings(props) {
   const [dataLoaded, setDataLoaded] = useState(false);
 
   useEffect(() => {
-    axios.get('/api/rulings/', { params: { oracle_id: props.oracle_id } }).then(response => {
-      setRulingData(response.data);
-      setDataLoaded(true);
-    });
+    axios
+      .get('/api/rulings/', {
+        params: { oracle_id: props.oracle_id }
+      })
+      .then(
+        response => {
+          setRulingData(response.data);
+          setDataLoaded(true);
+        },
+        error => console.log(error)
+      );
+    return () => {
+      setRulingData([]);
+      setDataLoaded(false);
+    };
   }, [props.oracle_id]);
 
   return (

@@ -11,6 +11,7 @@ import ResultsToolbar from './ResultsToolbar';
 import tableFields from './_tableFields';
 import axios from 'axios';
 import $ from 'jquery';
+import qs from 'qs';
 
 const useStyles = makeStyles({
   centeredContainer: {
@@ -32,12 +33,20 @@ function Results(props) {
   const [dataLoaded, setDataLoaded] = useState(false);
   const [format, setFormat] = useState('images');
   const classes = useStyles();
+  const isSimpleQuery = typeof props.query === 'string';
 
   useEffect(() => {
-    axios.get('api/cards/', { params: { name: props.query } }).then(function(response) {
-      dataSource.setData(response.data);
-      setDataLoaded(true);
-    });
+    axios
+      .get('api/cards/', {
+        params: isSimpleQuery ? { name: props.query } : { q: qs.stringify(props.query) }
+      })
+      .then(
+        response => {
+          dataSource.setData(response.data);
+          setDataLoaded(true);
+        },
+        error => console.log(error)
+      );
     return () => {
       dataSource.setData([]);
       setDataLoaded(false);
@@ -92,7 +101,7 @@ function Results(props) {
   ) : (
     <Paper className={classes.page} elevation={2}>
       <Typography className={classes.resultsText} variant='subtitle1'>
-        Searching for <strong>"{props.query}"</strong>.
+        {isSimpleQuery ? `Searching for ${props.query}.` : 'Searching...'}
       </Typography>
       <Box className={classes.centeredContainer}>
         <CircularProgress
