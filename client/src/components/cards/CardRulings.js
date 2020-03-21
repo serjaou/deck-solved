@@ -4,12 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
-  divider: {
-    marginLeft: '1rem'
-  },
-  paper: {
-    backgroundColor: theme.palette.info.lighter
-  }
+  divider: { marginLeft: '1rem' },
+  paper: { backgroundColor: theme.palette.info.lighter },
+  rulingComment: { wordBreak: 'break-word' }
 }));
 
 function CardRulings(props) {
@@ -62,7 +59,9 @@ function CardRulings(props) {
                       <Typography component='span' variant='subtitle2' color='textPrimary'>
                         {ruling.source.toUpperCase()}
                       </Typography>
-                      <em>{` — ${ruling.comment}`}</em>
+                      <Typography className={classes.rulingComment} component='span' variant='body2'>
+                        <em>{` — ${ruling.comment}`}</em>
+                      </Typography>
                     </React.Fragment>
                   }
                 />
