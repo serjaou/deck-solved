@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, CircularProgress, Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import FlipToFrontOutlined from '@material-ui/icons/FlipToFrontOutlined';
 import CardDetails from './CardDetails';
 import CardImage from './CardImage';
@@ -26,17 +26,19 @@ const useStyles = makeStyles({
   }
 });
 
-function CardPage(props) {
-  const [cardData, setCardData] = useState(props.card ? props.card : undefined);
-  const [dataLoaded, setDataLoaded] = useState(props.card ? true : false);
+function CardPage() {
+  const location = useLocation();
+  const hasStartingData = location.state && location.state.card;
+  const [cardData, setCardData] = useState(hasStartingData ? location.state.card : undefined);
+  const [dataLoaded, setDataLoaded] = useState(hasStartingData ? true : false);
   const [currentFace, setCurrentFace] = useState('front');
   const classes = useStyles();
 
-  // If the component it is called with empty data,
-  // infer the card info from the URL params and send a request to the server.
+  // If the component it is called with empty card-data,
+  // infer the card name from the URL params and obtain the data from the server.
   const { name } = useParams();
   useEffect(() => {
-    if (name) {
+    if (!hasStartingData && name) {
       axios
         .get('/api/cards/', {
           params: { name: decodeURIComponent(name) }
@@ -54,7 +56,7 @@ function CardPage(props) {
       setDataLoaded(false);
       setCurrentFace('front');
     };
-  }, [name]);
+  }, [hasStartingData, name]);
 
   const handleClick = () => {
     setCurrentFace(currentFace === 'front' ? 'back' : 'front');

@@ -19,9 +19,10 @@ function ImageResults(props) {
   const classes = useStyles(matches);
   const history = useHistory();
 
-  const handleClick = name => {
+  const handleClick = card => {
     history.push({
-      pathname: `/cards/${encodeURIComponent(name)}`
+      pathname: `/cards/${encodeURIComponent(card.name)}`,
+      state: { card }
     });
   };
 
@@ -29,7 +30,7 @@ function ImageResults(props) {
     <Grid container className={classes.container} direction='row' spacing={1}>
       {props.cards.map(card => (
         <Grid className={classes.card} key={card.id} item>
-          <CardImage onClickHandler={() => handleClick(card.name)} card={card} variant='normal' />
+          <CardImage onClickHandler={() => handleClick(card)} card={card} variant='normal' />
         </Grid>
       ))}
     </Grid>

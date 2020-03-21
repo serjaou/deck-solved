@@ -4,7 +4,8 @@ import SearchPage from './SearchPage';
 import Results from './results/Results';
 
 function SearchRouter() {
-  const query = new URLSearchParams(useLocation().search);
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
   const searchQuery = query.get('name');
 
   return searchQuery ? <Results query={searchQuery} /> : <SearchPage />;

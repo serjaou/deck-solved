@@ -3,8 +3,8 @@ import { Box, CircularProgress, Divider, MenuItem, Paper, Select } from '@materi
 import { Typography } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
 import { useDataHandler } from '../../../common';
-import { CardPage } from '../../cards';
 import ImageResults from './ImageResults';
 import ListResults from './ListResults';
 import ResultsToolbar from './ResultsToolbar';
@@ -31,6 +31,7 @@ const sortingFunctions = Object.assign(
 function Results(props) {
   const dataSource = useDataHandler(undefined, sortingFunctions);
   const [dataLoaded, setDataLoaded] = useState(false);
+  const history = useHistory();
   const [format, setFormat] = useState('images');
   const classes = useStyles();
   const isSimpleQuery = typeof props.query === 'string';
@@ -42,8 +43,15 @@ function Results(props) {
       })
       .then(
         response => {
-          dataSource.setData(response.data);
-          setDataLoaded(true);
+          if (response.data && response.data.length === 1) {
+            history.push({
+              pathname: `/cards/${encodeURIComponent(response.data[0].name)}`,
+              state: { card: response.data[0] }
+            });
+          } else {
+            dataSource.setData(response.data);
+            setDataLoaded(true);
+          }
         },
         error => console.log(error)
       );
@@ -63,9 +71,7 @@ function Results(props) {
     dataSource.setItemsPerPage(event.target.value);
   };
 
-  return dataLoaded && dataSource.data.length === 1 ? (
-    <CardPage card={dataSource.data[0]} />
-  ) : dataLoaded ? (
+  return dataLoaded ? (
     <Paper className={classes.page} elevation={2}>
       <ResultsToolbar
         dataSource={dataSource}
