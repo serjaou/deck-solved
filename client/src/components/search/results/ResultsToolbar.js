@@ -5,8 +5,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppsIcon from '@material-ui/icons/Apps';
 import ListIcon from '@material-ui/icons/List';
 
-const useStyles = makeStyles({
-  toggleButtons: { padding: '0.25rem', margin: '0.25rem 0', minWidth: '6rem' },
+const useStyles = makeStyles(theme => ({
+  toggleButtons: {
+    backgroundColor: theme.palette.common.white,
+    padding: '0.25rem',
+    margin: '0.25rem 0',
+    minWidth: '6rem'
+  },
   filterText: { verticalAlign: 'middle' },
   formatButton: { maxHeight: '2rem' },
   container: { display: 'flex', flexWrap: 'wrap', padding: '0.75rem 0' },
@@ -14,7 +19,7 @@ const useStyles = makeStyles({
   resultsText: { fontSize: '1.125rem', padding: '1.25rem 0 0' },
   select: { padding: '0.5rem', maxHeight: '2.25rem', minWidth: '12rem' },
   selectContainer: { flexGrow: '1', margin: '0.25rem 1.5rem 0.25rem 0' }
-});
+}));
 
 function ResultsToolbar(props) {
   const classes = useStyles();

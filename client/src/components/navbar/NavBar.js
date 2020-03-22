@@ -9,7 +9,7 @@ import { useSubmitSearch } from '../search';
 
 const useStyles = makeStyles(theme => ({
   container: { padding: '0 2rem' },
-  icon: { color: theme.palette.gray.light },
+  icon: { color: theme.palette.grey.light },
   input: { color: theme.palette.common.white },
   logo: { height: '2.25rem' },
   logoBox: { flexGrow: 1 },

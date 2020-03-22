@@ -8,8 +8,9 @@ import tableFields from './_tableFields';
 
 const useStyles = makeStyles(theme => ({
   cell: { overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' },
-  container: { backgroundColor: theme.palette.gray.lighter },
-  table: { tableLayout: 'fixed' }
+  container: { backgroundColor: theme.palette.common.white },
+  table: { tableLayout: 'fixed' },
+  tableHeader: { backgroundColor: theme.palette.grey.lighter }
 }));
 
 const StyledTooltip = withStyles({
@@ -20,7 +21,7 @@ const StyledTableRow = withStyles(theme => ({
   root: {
     cursor: 'pointer',
     '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.common.white
+      backgroundColor: '#FFFFFF'
     }
   }
 }))(TableRow);
@@ -62,7 +63,7 @@ function ListResults(props) {
   return (
     <TableContainer className={classes.container} component={Paper}>
       <Table size='small' className={classes.table}>
-        <TableHead>
+        <TableHead className={classes.tableHeader}>
           <TableRow>
             {tableFields.map(field => (
               <TableCell

@@ -13,17 +13,17 @@ import axios from 'axios';
 import $ from 'jquery';
 import qs from 'qs';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   centeredContainer: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
     padding: '0.75rem 0'
   },
-  page: { padding: '0 2rem' },
+  page: { padding: '0 2rem', backgroundColor: theme.palette.common.white },
   progress: { margin: '14rem 0 20rem' },
   resultsText: { fontSize: '1.125rem', padding: '1.25rem 0' }
-});
+}));
 const sortingFunctions = Object.assign(
   ...tableFields.map(field => ({ [field.name]: field.compare.bind(field) }))
 );

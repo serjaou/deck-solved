@@ -8,7 +8,7 @@ import CardImage from './CardImage';
 import CardRulings from './CardRulings';
 import axios from 'axios';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   image: {
     maxWidth: '26rem',
     width: '100%'
@@ -17,14 +17,14 @@ const useStyles = makeStyles({
     justifyContent: 'center'
   },
   paper: {
-    backgroundImage: `url("${process.env.PUBLIC_URL}/bg-paper.png")`,
+    backgroundColor: theme.palette.common.white,
     padding: '1rem 2rem'
   },
   transform: {
     textAlign: 'center',
     paddingTop: '0.375rem'
   }
-});
+}));
 
 function CardPage() {
   const location = useLocation();
