@@ -4,8 +4,11 @@
   "description": "A simple, easy-to-use and user-friendly web-application which can be used as an MTG card reference and as a deck-building tool.",
   "main": "server.js",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "nodemon server.js",
+    "dev": "concurrently \"npm run server-dev\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+    "start": "node server.js",
+    "server": "node server.js",
+    "server-dev": "nodemon server.js",
     "client": "npm start --prefix client",
     "client-test": "npm test --prefix client",
     "client-install": "npm install --prefix client"
