@@ -1,18 +1,19 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Container, Icon, InputBase } from '@material-ui/core';
-import { InputAdornment, Paper, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Box, Container, Icon, InputBase } from '@material-ui/core';
+import { InputAdornment, Paper, Toolbar } from '@material-ui/core';
 import { useLocation } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
 import NavButtons from './NavButtons';
 import { useSubmitSearch } from '../search';
 
 const useStyles = makeStyles(theme => ({
+  container: { padding: '0 2rem' },
   icon: { color: theme.palette.gray.light },
   input: { color: theme.palette.common.white },
-  container: { padding: '0 2rem' },
-  paper: { backgroundColor: theme.palette.primary.dark, padding: '0 0.5rem' },
-  title: { flexGrow: 1 }
+  logo: { height: '2.25rem' },
+  logoBox: { flexGrow: 1 },
+  paper: { backgroundColor: theme.palette.primary.dark, padding: '0 0.5rem' }
 }));
 
 function NavBar() {
@@ -34,9 +35,9 @@ function NavBar() {
     <AppBar position='static'>
       <Container className={classes.container} maxWidth='lg'>
         <Toolbar disableGutters>
-          <Typography variant='h6' className={classes.title}>
-            Deck Solved
-          </Typography>
+          <Box component='span' className={classes.logoBox}>
+            <img className={classes.logo} src={`${process.env.PUBLIC_URL}/logo.png`} alt='logo' />
+          </Box>
           {!(location.pathname === '/search' && location.search === '') && (
             <Paper className={classes.paper}>
               <InputBase
