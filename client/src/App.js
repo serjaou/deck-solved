@@ -7,7 +7,7 @@ import theme from './theme';
 
 const useStyles = makeStyles({
   background: {
-    backgroundImage: 'url("/bg-content.png")',
+    backgroundImage: `url("${process.env.PUBLIC_URL}/bg-content.png")`,
     margin: '0',
     padding: '0'
   }

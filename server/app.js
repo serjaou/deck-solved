@@ -8,7 +8,6 @@ const rulings = require('./api/rulings');
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
 
 // Connect to the database
 mongoose

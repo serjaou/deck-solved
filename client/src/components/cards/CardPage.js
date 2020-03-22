@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     justifyContent: 'center'
   },
   paper: {
-    backgroundImage: 'url("/bg-paper.png")',
+    backgroundImage: `url("${process.env.PUBLIC_URL}/bg-paper.png")`,
     padding: '1rem 2rem'
   },
   transform: {
