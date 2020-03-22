@@ -72,38 +72,46 @@ function Results(props) {
   };
 
   return dataLoaded ? (
-    <Paper className={classes.page} elevation={2}>
-      <ResultsToolbar
-        dataSource={dataSource}
-        format={format}
-        setFormat={setFormat}
-        tableFields={tableFields}
-        query={props.query}
-      />
-      <Divider />
-      <Box className={classes.centeredContainer}>
-        {format === 'images' ? (
-          <ImageResults cards={dataSource.data} />
-        ) : (
-          <ListResults dataSource={dataSource} />
-        )}
-      </Box>
-      <Divider />
-      <Box className={classes.centeredContainer}>
-        <Pagination
-          count={dataSource.finalPage}
-          color='secondary'
-          page={dataSource.currentPage + 1}
-          onChange={handlePageChange}
+    dataSource.data.length > 0 ? (
+      <Paper className={classes.page} elevation={2}>
+        <ResultsToolbar
+          dataSource={dataSource}
+          format={format}
+          setFormat={setFormat}
+          tableFields={tableFields}
+          query={props.query}
         />
-        <Select value={dataSource.itemsPerPage} onChange={changeOnItemsPerPage}>
-          <MenuItem value={12}>12</MenuItem>
-          <MenuItem value={24}>24</MenuItem>
-          <MenuItem value={48}>48</MenuItem>
-          <MenuItem value={96}>96</MenuItem>
-        </Select>
-      </Box>
-    </Paper>
+        <Divider />
+        <Box className={classes.centeredContainer}>
+          {format === 'images' ? (
+            <ImageResults cards={dataSource.data} />
+          ) : (
+            <ListResults dataSource={dataSource} />
+          )}
+        </Box>
+        <Divider />
+        <Box className={classes.centeredContainer}>
+          <Pagination
+            count={dataSource.finalPage}
+            color='secondary'
+            page={dataSource.currentPage + 1}
+            onChange={handlePageChange}
+          />
+          <Select value={dataSource.itemsPerPage} onChange={changeOnItemsPerPage}>
+            <MenuItem value={12}>12</MenuItem>
+            <MenuItem value={24}>24</MenuItem>
+            <MenuItem value={48}>48</MenuItem>
+            <MenuItem value={96}>96</MenuItem>
+          </Select>
+        </Box>
+      </Paper>
+    ) : (
+      <Paper className={classes.page} elevation={2}>
+        <Typography className={classes.resultsText} variant='subtitle1'>
+          {isSimpleQuery ? `No results were found for ${props.query}.` : 'No results were found.'}
+        </Typography>
+      </Paper>
+    )
   ) : (
     <Paper className={classes.page} elevation={2}>
       <Typography className={classes.resultsText} variant='subtitle1'>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, CircularProgress, Grid, Paper } from '@material-ui/core';
+import { Button, CircularProgress, Grid, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useLocation, useParams } from 'react-router-dom';
 import FlipToFrontOutlined from '@material-ui/icons/FlipToFrontOutlined';
@@ -36,16 +36,18 @@ function CardPage() {
 
   // If the component it is called with empty card-data,
   // infer the card name from the URL params and obtain the data from the server.
-  const { name } = useParams();
+  const { name: query } = useParams();
   useEffect(() => {
-    if (!hasStartingData && name) {
+    if (!hasStartingData && query) {
       axios
         .get('/api/cards/', {
-          params: { name: decodeURIComponent(name) }
+          params: { name: decodeURIComponent(query) }
         })
         .then(
           response => {
-            setCardData(response.data[0]);
+            if (response.data.length > 0) {
+              setCardData(response.data[0]);
+            }
             setDataLoaded(true);
           },
           error => console.log(error)
@@ -56,7 +58,7 @@ function CardPage() {
       setDataLoaded(false);
       setCurrentFace('front');
     };
-  }, [hasStartingData, name]);
+  }, [hasStartingData, query]);
 
   const handleClick = () => {
     setCurrentFace(currentFace === 'front' ? 'back' : 'front');
@@ -69,32 +71,38 @@ function CardPage() {
       : { front: cardData };
 
   return dataLoaded ? (
-    <Paper className={classes.paper} elevation={2}>
-      <Grid container className={classes.grid} spacing={2}>
-        <Grid item xs={12} sm={6} md={4} className={classes.image}>
-          <CardImage card={card[currentFace]} variant='png' />
-          {cardData.layout === 'transform' && (
-            <div className={classes.transform}>
-              <Button
-                variant='contained'
-                color='secondary'
-                endIcon={<FlipToFrontOutlined />}
-                onClick={() => handleClick()}
-                size='small'
-              >
-                Transform
-              </Button>
-            </div>
-          )}
+    cardData ? (
+      <Paper className={classes.paper} elevation={2}>
+        <Grid container className={classes.grid} spacing={2}>
+          <Grid item xs={12} sm={6} md={4} className={classes.image}>
+            <CardImage card={card[currentFace]} variant='png' />
+            {cardData.layout === 'transform' && (
+              <div className={classes.transform}>
+                <Button
+                  variant='contained'
+                  color='secondary'
+                  endIcon={<FlipToFrontOutlined />}
+                  onClick={() => handleClick()}
+                  size='small'
+                >
+                  Transform
+                </Button>
+              </div>
+            )}
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <CardDetails cardData={cardData} card={card[currentFace]} />
+          </Grid>
+          <Grid item xs={12} sm={12} md={4}>
+            <CardRulings oracle_id={cardData.oracle_id} />
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <CardDetails cardData={cardData} card={card[currentFace]} />
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <CardRulings oracle_id={cardData.oracle_id} />
-        </Grid>
-      </Grid>
-    </Paper>
+      </Paper>
+    ) : (
+      <Paper className={classes.paper} elevation={2}>
+        <Typography variant='subtitle1'>{`There is no card named ${query}.`}</Typography>
+      </Paper>
+    )
   ) : (
     <CircularProgress color='secondary' />
   );

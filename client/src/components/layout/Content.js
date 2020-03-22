@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { CardPage } from '../../components/cards';
 import { SearchRouter } from '../../components/search';
+import { NotFound } from '../../components/layout/misc';
 
 const useStyles = makeStyles({
   container: {
@@ -29,6 +30,9 @@ function Content() {
         </Route>
         <Route path='/build-deck'>BUILD DECK</Route>
         <Route path='/about'>ABOUT</Route>
+        <Route path='/'>
+          <NotFound />
+        </Route>
       </Switch>
     </Container>
   );
