@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
   icon: { color: theme.palette.grey.light },
   input: { color: theme.palette.common.white },
   logo: { height: '2.25rem', cursor: 'pointer' },
-  logoBox: { flexGrow: 1 },
+  logoBox: { flexGrow: 1, marginRight: '0.5rem' },
   paper: { backgroundColor: theme.palette.primary.dark, padding: '0 0.5rem' }
 }));
 

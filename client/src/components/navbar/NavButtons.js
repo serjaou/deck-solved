@@ -11,8 +11,8 @@ const useStyles = makeStyles({
     paddingRight: '0'
   },
   menuButton: {
-    position: 'relative',
-    left: '0.875rem'
+    marginLeft: '0.5rem',
+    padding: '0.75rem 0.25rem'
   }
 });
 
