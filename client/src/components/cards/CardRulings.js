@@ -56,10 +56,12 @@ function CardRulings(props) {
                   }
                   secondary={
                     <React.Fragment>
-                      <Typography component='span' variant='subtitle2' color='textPrimary'>
+                      <Typography
+                        className={classes.rulingComment}
+                        component='span'
+                        variant='body2'
+                      >
                         {ruling.source.toUpperCase()}
-                      </Typography>
-                      <Typography className={classes.rulingComment} component='span' variant='body2'>
                         <em>{` — ${ruling.comment}`}</em>
                       </Typography>
                     </React.Fragment>
