@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Box, Container, Icon, InputBase } from '@material-ui/core';
+import { AppBar, Box, Container, Icon, InputBase, useMediaQuery } from '@material-ui/core';
 import { InputAdornment, Paper, Toolbar } from '@material-ui/core';
 import { useHistory, useLocation } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
@@ -9,10 +9,10 @@ import { useSubmitSearch } from '../search';
 
 const useStyles = makeStyles(theme => ({
   container: { padding: '0 2rem' },
-  icon: { color: theme.palette.grey.light },
+  icon: { color: theme.palette.grey.light, cursor: 'pointer' },
   input: { color: theme.palette.common.white },
   logo: { height: '2.25rem', cursor: 'pointer' },
-  logoBox: { flexGrow: 1, marginRight: '0.5rem' },
+  logoBox: { flexGrow: 1, marginRight: '1rem' },
   paper: { backgroundColor: theme.palette.primary.dark, padding: '0 0.5rem' }
 }));
 
@@ -20,6 +20,7 @@ function NavBar() {
   const classes = useStyles();
   const location = useLocation();
   const history = useHistory();
+  const matchesSmallScreen = useMediaQuery('(max-width:600px)');
   const [value, setValue, handleSubmit] = useSubmitSearch();
 
   const handleClick = () => {
@@ -28,10 +29,13 @@ function NavBar() {
   const handleChange = event => {
     setValue(event.target.value);
   };
+  const handleClickSubmit = () => {
+    handleSubmit();
+    setValue('');
+  };
   const handleKeyPress = event => {
     if (event.key === 'Enter') {
-      handleSubmit();
-      setValue('');
+      handleClickSubmit();
     }
   };
 
@@ -47,7 +51,7 @@ function NavBar() {
               alt='logo'
             />
           </Box>
-          {!(location.pathname === '/search' && location.search === '') && (
+          {!(location.pathname === '/search' && location.search === '') && !matchesSmallScreen && (
             <Paper className={classes.paper}>
               <InputBase
                 className={classes.input}
@@ -57,7 +61,7 @@ function NavBar() {
                 placeholder='Search...'
                 endAdornment={
                   <InputAdornment position='end'>
-                    <Icon className={classes.icon}>
+                    <Icon onClick={handleClickSubmit} className={classes.icon}>
                       <SearchIcon />
                     </Icon>
                   </InputAdornment>

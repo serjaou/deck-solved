@@ -41,7 +41,7 @@ function ResultsToolbar(props) {
     <div>
       <Typography className={classes.resultsText} variant='body1'>
         {typeof props.query === 'string'
-          ? `Showing results for ${props.query}.`
+          ? `Showing results for "${props.query}".`
           : 'Showing results.'}
       </Typography>
       <Box className={classes.container}>

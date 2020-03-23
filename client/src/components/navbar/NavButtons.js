@@ -19,7 +19,7 @@ const useStyles = makeStyles({
 function NavButtons() {
   const classes = useStyles();
   const history = useHistory();
-  const matches = useMediaQuery('(max-width:694px)');
+  const matches = useMediaQuery('(max-width:800px)');
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const openMenu = event => {
@@ -29,7 +29,7 @@ function NavButtons() {
     setAnchorEl(null);
   };
   const handleClick = event => {
-    const parsedRoute = parseRoute(event.target.innerText);
+    const parsedRoute = parseRoute(event.currentTarget.innerText);
     history.push(`/${parsedRoute}`);
     closeMenu();
   };
