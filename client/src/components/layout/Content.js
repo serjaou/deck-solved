@@ -29,10 +29,10 @@ function Content() {
           <CardPage />
         </Route>
         <Route exact path='/build-deck'>
-          BUILD DECK
+          __BUILD_DECK
         </Route>
         <Route exact path='/about'>
-          ABOUT
+          __ABOUT
         </Route>
         <Route exact path='*'>
           <NotFound />

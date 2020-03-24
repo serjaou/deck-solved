@@ -1,12 +1,11 @@
 import React from 'react';
-import { Box, Button, IconButton, Menu, MenuItem, useMediaQuery } from '@material-ui/core';
+import { Box, IconButton, Link, Menu, MenuItem, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
-import { parseRoute } from '../../common';
 
 const useStyles = makeStyles({
-  button: {
+  navButton: {
+    fontWeight: '500',
     marginLeft: '1rem',
     paddingRight: '0'
   },
@@ -18,7 +17,6 @@ const useStyles = makeStyles({
 
 function NavButtons() {
   const classes = useStyles();
-  const history = useHistory();
   const matches = useMediaQuery('(max-width:800px)');
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -27,11 +25,6 @@ function NavButtons() {
   };
   const closeMenu = () => {
     setAnchorEl(null);
-  };
-  const handleClick = event => {
-    closeMenu();
-    const parsedRoute = parseRoute(event.currentTarget.innerText);
-    history.push({ pathname: `/${parsedRoute}` });
   };
 
   return matches ? (
@@ -45,22 +38,34 @@ function NavButtons() {
         <MenuIcon />
       </IconButton>
       <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={closeMenu}>
-        <MenuItem onClick={handleClick}>Search</MenuItem>
-        <MenuItem onClick={handleClick}>Build Deck</MenuItem>
-        <MenuItem onClick={handleClick}>About</MenuItem>
+        <MenuItem>
+          <Link href='/search' underline='none'>
+            SEARCH
+          </Link>
+        </MenuItem>
+        <MenuItem>
+          <Link href='/build-deck' underline='none'>
+            BUILD DECK
+          </Link>
+        </MenuItem>
+        <MenuItem>
+          <Link href='/about' underline='none'>
+            ABOUT
+          </Link>
+        </MenuItem>
       </Menu>
     </div>
   ) : (
     <Box component='span'>
-      <Button onClick={handleClick} className={classes.button} color='inherit'>
-        Search
-      </Button>
-      <Button onClick={handleClick} className={classes.button} color='inherit'>
-        Build Deck
-      </Button>
-      <Button onClick={handleClick} className={classes.button} color='inherit'>
-        About
-      </Button>
+      <Link className={classes.navButton} href='/search' color='inherit' underline='none'>
+        SEARCH
+      </Link>
+      <Link className={classes.navButton} href='/build-deck' color='inherit' underline='none'>
+        BUILD DECK
+      </Link>
+      <Link className={classes.navButton} href='/about' color='inherit' underline='none'>
+        ABOUT
+      </Link>
     </Box>
   );
 }
