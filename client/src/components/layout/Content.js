@@ -22,15 +22,19 @@ function Content() {
         <Route exact path='/'>
           <Redirect to='/search' />
         </Route>
-        <Route path='/search'>
+        <Route exact path='/search'>
           <SearchRouter />
         </Route>
-        <Route path='/cards/:name'>
+        <Route exact path='/cards/:name'>
           <CardPage />
         </Route>
-        <Route path='/build-deck'>BUILD DECK</Route>
-        <Route path='/about'>ABOUT</Route>
-        <Route path='/'>
+        <Route exact path='/build-deck'>
+          BUILD DECK
+        </Route>
+        <Route exact path='/about'>
+          ABOUT
+        </Route>
+        <Route exact path='*'>
           <NotFound />
         </Route>
       </Switch>

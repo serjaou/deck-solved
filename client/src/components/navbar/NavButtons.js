@@ -29,9 +29,9 @@ function NavButtons() {
     setAnchorEl(null);
   };
   const handleClick = event => {
-    const parsedRoute = parseRoute(event.currentTarget.innerText);
-    history.push(`/${parsedRoute}`);
     closeMenu();
+    const parsedRoute = parseRoute(event.currentTarget.innerText);
+    history.push({ pathname: `/${parsedRoute}` });
   };
 
   return matches ? (
