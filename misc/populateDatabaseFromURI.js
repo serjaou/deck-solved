@@ -37,13 +37,13 @@ async function populateDatabaseFromURI(sourceURI, targetURI) {
 
   console.log('Building the pipelines...');
   const pipeline = [];
-  // pipeline match
+  // match stage - avoid cards that don't have a multiverse_id.
   const match = {
     $match: {
       multiverse_ids: { $ne: [] }
     }
   };
-  // filter duplicate cards (keep the latest version)
+  // group stage - filter duplicate cards (keep the latest version of the card).
   const group = {
     $group: {
       _id: '$oracle_id',
@@ -75,7 +75,7 @@ async function populateDatabaseFromURI(sourceURI, targetURI) {
       type_line: { $first: '$type_line' }
     }
   };
-  // filter _id field generated on group stage
+  // project stage - filter _id field generated on group stage.
   const project = {
     $project: {
       _id: 0,

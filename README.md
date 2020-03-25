@@ -26,7 +26,7 @@ The application should be composed of the following _sections_:
 - Node.js - **server**.
 - Express - **api**.
 - Mongoose (MongoDB) - **database**.
-- Others - body-parser, dot-env, qs, etc.
+- Others - body-parser, dot-env, etc.
 
 ## App Structure:
 
@@ -36,7 +36,7 @@ The application should be composed of the following _sections_:
 
 - `/search`:
   - Used with queryParams _(e.g. "/search?name=tarmogoyf")_.
-  - Trigger a card search according to the params and show a results page displaying card results. You can also perform an advanced search (review server API).
+  - Trigger a card-search according to the query-string and display a page with the results. You can also perform an advanced search using the set of allowed string queries that are defined on the API (review server API).
 - `/cards/<cardName>`:
   - Used with URL params _(e.g. "/cards/Thoughtseize")_.
   - Redirects to a page that shows the card's detailed information.
