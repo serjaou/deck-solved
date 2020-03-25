@@ -16,7 +16,6 @@ const useStyles = makeStyles(theme => ({
   formatButton: { maxHeight: '2rem' },
   container: { display: 'flex', flexWrap: 'wrap', padding: '0.75rem 0' },
   pagination: { display: 'flex', margin: '0.25rem', padding: '0.25rem' },
-  resultsText: { fontSize: '1.125rem', padding: '1.25rem 0 0' },
   select: { padding: '0.5rem', maxHeight: '2.25rem', minWidth: '12rem' },
   selectContainer: { flexGrow: '1', margin: '0.25rem 1.5rem 0.25rem 0' }
 }));
@@ -39,11 +38,6 @@ function ResultsToolbar(props) {
 
   return (
     <div>
-      <Typography className={classes.resultsText} variant='body1'>
-        {typeof props.query === 'string'
-          ? `Showing results for "${props.query}".`
-          : 'Showing results.'}
-      </Typography>
       <Box className={classes.container}>
         <ToggleButtonGroup
           className={classes.toggleButtons}

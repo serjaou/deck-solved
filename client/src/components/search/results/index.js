@@ -1,5 +1,6 @@
-import Results from './Results'
+import ImageResults from './ImageResults';
+import ListResults from './ListResults';
+import Results from './Results';
+import ResultsToolbar from './ResultsToolbar';
 
-export {
-  Results
-};
+export { ImageResults, ListResults, Results, ResultsToolbar };

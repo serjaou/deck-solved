@@ -9,15 +9,15 @@ const Ruling = require('../models/rulings');
  * @desc  Get the rulings for a specific card.
  */
 router.get('/', (req, res) => {
-  if (typeof req.query.oracle_id === 'string') {
-    console.log(`[/rulings] handling GET request for "oracle_id=${req.query.oracle_id}"`);
+  if (req.query.oracle_id) {
+    console.log(`[/rulings] handling GET request for "oracle_id: ${req.query.oracle_id}"`);
     Ruling.find({ oracle_id: req.query.oracle_id }).then(
-      rulings => res.send(rulings),
+      rulings => res.status(200).send(rulings),
       error => console.log(error)
     );
   } else {
-    console.log('[/rulings] bad request - returning an empty array');
-    res.send([]);
+    console.log('[/rulings] bad request - empty query');
+    res.status(400).send('bad request');
   }
 });
 
