@@ -5,7 +5,7 @@ import { Pagination } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import { ImageResults, ListResults, ResultsToolbar } from '../results';
-import { useDataHandler } from '../../../common';
+import { usePaginatedData } from '../../../common';
 import tableFields from './_tableFields';
 import axios from 'axios';
 import $ from 'jquery';
@@ -27,7 +27,7 @@ const sortingFunctions = Object.assign(
 );
 
 function Results(props) {
-  const dataSource = useDataHandler(undefined, sortingFunctions);
+  const dataSource = usePaginatedData(undefined, sortingFunctions);
   const [dataLoaded, setDataLoaded] = useState(false);
   const [format, setFormat] = useState('images');
   const history = useHistory();

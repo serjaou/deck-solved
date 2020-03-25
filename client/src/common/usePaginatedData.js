@@ -4,11 +4,11 @@ import { useState } from 'react';
  * @param {Array} data
  * @param {Number} itemsPerPage
  * @param {Object} sortingFunctions
- * useDataHandler.- custom hook that serves paginated data.
+ * usePaginatedData.- custom hook that serves paginated data.
  * sortingFunctions.- object that contains comparison algorithms to sort data
  * according to a specific field: { <fieldName>: <sortingFunction>, ... }.
  */
-function useDataHandler(data = [], sortingFunctions = {}, itemsPerPage = 48) {
+function usePaginatedData(data = [], sortingFunctions = {}, itemsPerPage = 48) {
   const [_data, _setData] = useState(data);
   const [_page, _setPage] = useState(0);
   const [_itemsPerPage, _setItemsPerPage] = useState(itemsPerPage);
@@ -53,4 +53,4 @@ function useDataHandler(data = [], sortingFunctions = {}, itemsPerPage = 48) {
   };
 }
 
-export default useDataHandler;
+export default usePaginatedData;

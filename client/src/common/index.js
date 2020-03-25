@@ -1,4 +1,4 @@
-import parseRoute from './parseRoute';
-import useDataHandler from './useDataHandler';
+import theme from './theme';
+import usePaginatedData from './usePaginatedData';
 
-export { parseRoute, useDataHandler };
+export { theme, usePaginatedData };
