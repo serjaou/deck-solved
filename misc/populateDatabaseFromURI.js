@@ -2,7 +2,36 @@ require('dotenv').config('');
 const mongoose = require('mongoose');
 const cardSchema = require('../schemas/cardSchema');
 
-async function uploadParsedData(sourceURI, targetURI) {
+async function connectToDatabases(sourceURI, targetURI) {
+  let sourceModel = {};
+  let targetModel = {};
+
+  try {
+    const sourceConn = await mongoose.createConnection(sourceURI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+    sourceModel = sourceConn.model('Card', cardSchema);
+  } catch (error) {
+    console.log(error);
+  }
+  console.log('Source MongoDB connected.');
+
+  try {
+    const targetConn = await mongoose.createConnection(targetURI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+    targetModel = targetConn.model('Card', cardSchema);
+  } catch (error) {
+    console.log(error);
+  }
+  console.log('Target MongoDB connected.');
+
+  return [sourceModel, targetModel];
+}
+
+async function populateDatabaseFromURI(sourceURI, targetURI) {
   console.log('Connecting to databases...');
   const [sourceModel, targetModel] = await connectToDatabases(sourceURI, targetURI);
 
@@ -93,33 +122,4 @@ async function uploadParsedData(sourceURI, targetURI) {
   process.exit([0]);
 }
 
-async function connectToDatabases(sourceURI, targetURI) {
-  let sourceModel = {};
-  let targetModel = {};
-
-  try {
-    const sourceConn = await mongoose.createConnection(sourceURI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
-    sourceModel = sourceConn.model('Card', cardSchema);
-  } catch (error) {
-    console.log(error);
-  }
-  console.log('Source MongoDB connected.');
-
-  try {
-    const targetConn = await mongoose.createConnection(targetURI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
-    targetModel = targetConn.model('Card', cardSchema);
-  } catch (error) {
-    console.log(error);
-  }
-  console.log('Target MongoDB connected.');
-
-  return [sourceModel, targetModel];
-}
-
-module.exports = uploadParsedData;
+module.exports = populateDatabaseFromURI;
