@@ -3,7 +3,7 @@ import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { CardPage } from '../../components/card';
-import { Results, SearchPage } from '../../components/search';
+import { Search, SearchPage } from '../../components/search';
 import { NotFound } from '../../components/supp';
 import qs from 'qs';
 
@@ -23,7 +23,7 @@ function Content() {
           <Redirect to='/search' />
         </Route>
         <Route exact path='/search'>
-          {queryObj ? <Results query={queryObj} /> : <SearchPage />}
+          {queryObj ? <Search query={queryObj} /> : <SearchPage />}
         </Route>
         <Route exact path='/cards/:name'>
           <CardPage />

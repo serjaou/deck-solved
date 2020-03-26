@@ -1,4 +1,4 @@
+import Search from './Search';
 import SearchPage from './SearchPage';
-import { Results } from './results';
 
-export { Results, SearchPage };
+export { Search, SearchPage };

@@ -81,10 +81,11 @@ function ResultsToolbar(props) {
             onChange={handlePageChange}
           />
           <Select value={props.paginatedData.itemsPerPage} onChange={changeOnItemsPerPage}>
-            <MenuItem value={12}>12</MenuItem>
-            <MenuItem value={24}>24</MenuItem>
-            <MenuItem value={48}>48</MenuItem>
-            <MenuItem value={96}>96</MenuItem>
+            {props.itemsPerPageValues.map(value => (
+              <MenuItem key={value} value={value}>
+                {value}
+              </MenuItem>
+            ))}
           </Select>
         </Box>
       </Box>

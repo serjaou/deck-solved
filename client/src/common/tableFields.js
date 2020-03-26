@@ -35,9 +35,9 @@ export default [
     name: 'rarity',
     label: 'rarity',
     cellWidth: '8em',
-    weight: { common: 0, uncommon: 1, rare: 2, mythic: 3 },
     compare(a, b) {
-      return a.rarity && b.rarity ? this.weight[a.rarity] - this.weight[b.rarity] : 0;
+      const weight = { common: 0, uncommon: 1, rare: 2, mythic: 3 };
+      return a.rarity && b.rarity ? weight[a.rarity] - weight[b.rarity] : 0;
     }
   },
   {
