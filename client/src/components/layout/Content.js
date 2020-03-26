@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { CardPage } from '../../components/card';
 import { SearchRouter } from '../../components/search';
-import { NotFound } from '../../components/layout/misc';
+import { NotFound } from '../../components/supp';
 
 const useStyles = makeStyles({
   container: { minHeight: '90vh', padding: '0' }

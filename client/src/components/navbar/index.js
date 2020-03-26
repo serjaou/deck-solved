@@ -1,5 +1,4 @@
-import NavBar from './NavBar'
+import NavBar from './NavBar';
+import NavButtons from './NavButtons';
 
-export {
-  NavBar
-};
+export { NavBar, NavButtons };

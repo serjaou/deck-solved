@@ -1,41 +1,34 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Box, Container, Icon, InputBase, useMediaQuery } from '@material-ui/core';
-import { InputAdornment, Paper, Toolbar } from '@material-ui/core';
+import { AppBar, Box, Container, Icon, InputBase, InputAdornment } from '@material-ui/core';
+import { Paper, Toolbar, useMediaQuery } from '@material-ui/core';
 import { useHistory, useLocation } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import NavButtons from './NavButtons';
+import { NavButtons } from '../navbar';
 import { useSubmitSearch } from '../search';
 
 const useStyles = makeStyles(theme => ({
   container: { padding: '0 2rem' },
-  icon: { color: theme.palette.grey.light, cursor: 'pointer' },
-  input: { color: theme.palette.common.white },
   logo: { height: '2.25rem', cursor: 'pointer' },
   logoBox: { flexGrow: 1, marginRight: '1rem' },
-  paper: { backgroundColor: theme.palette.primary.dark, padding: '0 0.5rem' }
+  searchInput: { color: theme.palette.common.white },
+  searchInputBox: { backgroundColor: theme.palette.primary.dark, padding: '0 0.5rem' },
+  searchInputIcon: { color: theme.palette.grey.light, cursor: 'pointer' }
 }));
 
 function NavBar() {
   const classes = useStyles();
   const location = useLocation();
   const history = useHistory();
-  const matchesSmallScreen = useMediaQuery('(max-width:600px)');
-  const [value, setValue, handleSubmit] = useSubmitSearch();
+  const smallScreen = useMediaQuery('(max-width:600px)');
+  const [searchValue, setSearchValue, submitSearch] = useSubmitSearch();
 
-  const handleClick = () => {
+  const redirectToHome = () => {
     history.push({ pathname: '/' });
   };
-  const handleChange = event => {
-    setValue(event.target.value);
-  };
-  const handleClickSubmit = () => {
-    handleSubmit();
-    setValue('');
-  };
-  const handleKeyPress = event => {
+  const submitOnEnter = event => {
     if (event.key === 'Enter') {
-      handleClickSubmit();
+      submitSearch();
     }
   };
 
@@ -45,23 +38,24 @@ function NavBar() {
         <Toolbar disableGutters>
           <Box component='span' className={classes.logoBox}>
             <img
-              onClick={handleClick}
+              onClick={redirectToHome}
               className={classes.logo}
               src={`${process.env.PUBLIC_URL}/logo.png`}
-              alt='logo'
+              alt='DECK SOLVED'
             />
           </Box>
-          {!(location.pathname === '/search' && location.search === '') && !matchesSmallScreen && (
-            <Paper className={classes.paper}>
+          {// show search input only on medium-large screens & outside '/search' route.
+          !(location.pathname === '/search' && location.search === '') && !smallScreen && (
+            <Paper className={classes.searchInputBox}>
               <InputBase
-                className={classes.input}
-                value={value}
-                onChange={handleChange}
-                onKeyPress={handleKeyPress}
+                className={classes.searchInput}
+                value={searchValue}
+                onChange={event => setSearchValue(event.target.value)}
+                onKeyPress={submitOnEnter}
                 placeholder='Search...'
                 endAdornment={
                   <InputAdornment position='end'>
-                    <Icon onClick={handleClickSubmit} className={classes.icon}>
+                    <Icon onClick={submitSearch} className={classes.searchInputIcon}>
                       <SearchIcon />
                     </Icon>
                   </InputAdornment>

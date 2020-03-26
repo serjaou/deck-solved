@@ -1,24 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, IconButton, Link, Menu, MenuItem, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles({
-  navButton: {
-    fontWeight: '500',
-    marginLeft: '1rem',
-    paddingRight: '0'
-  },
-  menuButton: {
-    marginLeft: '0.5rem',
-    padding: '0.75rem 0.25rem'
-  }
+  navButton: { fontWeight: '500', marginLeft: '1rem', paddingRight: '0' },
+  menuButton: { marginLeft: '0.5rem', padding: '0.75rem 0.25rem' }
 });
 
 function NavButtons() {
   const classes = useStyles();
-  const matches = useMediaQuery('(max-width:800px)');
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const mediumOrSmallScreen = useMediaQuery('(max-width:800px)');
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const openMenu = event => {
     setAnchorEl(event.currentTarget);
@@ -27,14 +20,9 @@ function NavButtons() {
     setAnchorEl(null);
   };
 
-  return matches ? (
+  return mediumOrSmallScreen ? (
     <div>
-      <IconButton
-        className={classes.menuButton}
-        color='inherit'
-        aria-label='menu'
-        onClick={openMenu}
-      >
+      <IconButton className={classes.menuButton} color='inherit' onClick={openMenu}>
         <MenuIcon />
       </IconButton>
       <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={closeMenu}>

@@ -5,14 +5,15 @@ function useSubmitSearch(initValue = '') {
   const [value, setValue] = useState(initValue);
   const history = useHistory();
 
-  const handleSubmit = () => {
+  const submitSearch = () => {
     history.push({
       pathname: '/search',
       search: `name=${value}`
     });
+    setValue('');
   };
 
-  return [value, setValue, handleSubmit];
+  return [value, setValue, submitSearch];
 }
 
 export default useSubmitSearch;
