@@ -42,7 +42,7 @@ const CardImageOnHover = React.forwardRef(function(props, ref) {
   );
 });
 
-function ListResults(props) {
+function ResultsList(props) {
   const [order, setOrder] = useState('desc');
   const history = useHistory();
   const classes = useStyles();
@@ -112,4 +112,4 @@ function ListResults(props) {
   );
 }
 
-export default ListResults;
+export default ResultsList;

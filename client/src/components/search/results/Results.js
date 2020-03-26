@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Divider, MenuItem, Select } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
-import { ImageResults, ListResults, ResultsToolbar } from '../results';
+import { ResultsImages, ResultsList, ResultsToolbar } from '../results';
 import $ from 'jquery';
 
 const ITEMS_PER_PAGE_VALUES = [12, 24, 48, 96, 192];
@@ -35,9 +35,9 @@ function Results(props) {
       <Divider />
       <Box className={classes.container}>
         {format === 'images' ? (
-          <ImageResults cards={props.paginatedData.data} />
+          <ResultsImages cards={props.paginatedData.data} />
         ) : (
-          <ListResults paginatedData={props.paginatedData} />
+          <ResultsList paginatedData={props.paginatedData} />
         )}
       </Box>
       <Divider />

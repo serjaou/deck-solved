@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   }
 });
 
-function ImageResults(props) {
+function ResultsImages(props) {
   const matches = useMediaQuery('(max-width:600px)');
   const classes = useStyles(matches);
   const history = useHistory();
@@ -37,4 +37,4 @@ function ImageResults(props) {
   );
 }
 
-export default ImageResults;
+export default ResultsImages;
