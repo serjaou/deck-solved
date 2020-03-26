@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
   divider: { marginLeft: '1rem' },
-  paper: { backgroundColor: theme.palette.info.lighter },
+  container: { backgroundColor: theme.palette.grey.lighter },
   rulingComment: { wordBreak: 'break-word' }
 }));
 
@@ -20,8 +20,8 @@ function CardRulings(props) {
         params: { oracle_id: props.oracle_id }
       })
       .then(
-        response => {
-          setRulingData(response.data);
+        ruling => {
+          setRulingData(ruling.data);
           setDataLoaded(true);
         },
         error => console.log(error)
@@ -35,12 +35,10 @@ function CardRulings(props) {
   return (
     dataLoaded &&
     rulingData.length > 0 && (
-      <Paper className={classes.paper} elevation={4}>
+      <Paper className={classes.container} elevation={2}>
         <List>
           <ListItem dense>
-            <Typography variant='h6'>
-              <strong>Rulings:</strong>
-            </Typography>
+            <Typography variant='h6'>Rulings:</Typography>
           </ListItem>
           {rulingData.map(ruling => (
             <div key={ruling._id}>

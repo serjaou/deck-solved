@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(props => ({
+const useStyles = makeStyles({
   symbolImage: {
     boxShadow: '-1px 1px 0 rgba(0,0,0,0.85)',
     display: 'inline-block',
@@ -10,10 +10,12 @@ const useStyles = makeStyles(props => ({
     height: props => `${props.size}rem`,
     width: props => `${props.size}rem`
   }
-}));
+});
 
 function CardSymbol(props) {
   const classes = useStyles(props);
+
+  // remove curly braces from symbol (e.g. "{GU}" -> "GU").
   const baredSymbol = props.symbol.match(/\w/g).join('');
 
   return (

@@ -2,15 +2,12 @@ import React from 'react';
 import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { CardPage } from '../../components/cards';
+import { CardPage } from '../../components/card';
 import { SearchRouter } from '../../components/search';
 import { NotFound } from '../../components/layout/misc';
 
 const useStyles = makeStyles({
-  container: {
-    minHeight: '90vh',
-    padding: '0'
-  }
+  container: { minHeight: '90vh', padding: '0' }
 });
 
 function Content() {

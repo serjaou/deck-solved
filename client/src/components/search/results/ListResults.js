@@ -3,7 +3,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead } from '@materia
 import { TableRow, TableSortLabel, Tooltip, Paper } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-import { CardImage, CardText } from '../../cards';
+import { CardImage, CardText } from '../../card';
 import tableFields from './_tableFields';
 
 const useStyles = makeStyles(theme => ({
