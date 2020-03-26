@@ -5,7 +5,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import { NavButtons } from '../navbar';
-import { useSubmitSearch } from '../search';
+import { useSubmitSearch } from '../../common';
 
 const useStyles = makeStyles(theme => ({
   container: { padding: '0 2rem' },

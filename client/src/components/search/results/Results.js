@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import { ImageResults, ListResults, ResultsToolbar } from '../results';
 import { usePaginatedData } from '../../../common';
-import tableFields from './_tableFields';
+import { tableFields } from '../../../common';
 import axios from 'axios';
 import $ from 'jquery';
 
@@ -27,7 +27,7 @@ const sortingFunctions = Object.assign(
 );
 
 function Results(props) {
-  const dataSource = usePaginatedData(undefined, sortingFunctions);
+  const paginatedData = usePaginatedData(undefined, sortingFunctions);
   const [dataLoaded, setDataLoaded] = useState(false);
   const [format, setFormat] = useState('images');
   const history = useHistory();
@@ -42,35 +42,35 @@ function Results(props) {
             state: { card: cards.data[0] }
           });
         } else {
-          dataSource.setData(cards.data);
+          paginatedData.setData(cards.data);
           setDataLoaded(true);
         }
       },
       error => console.log(error)
     );
     return () => {
-      dataSource.setData([]);
+      paginatedData.setData([]);
       setDataLoaded(false);
       setFormat('images');
     };
   }, [props.query]);
 
   const handlePageChange = (event, value) => {
-    dataSource.setPage(value - 1);
+    paginatedData.setPage(value - 1);
     $('html,body').scrollTop(0);
   };
   const changeOnItemsPerPage = (event, value) => {
-    dataSource.setItemsPerPage(event.target.value);
+    paginatedData.setItemsPerPage(event.target.value);
   };
 
   return dataLoaded ? (
-    dataSource.data.length > 0 ? (
+    paginatedData.data.length > 0 ? (
       <Paper className={classes.page} elevation={2}>
         <Typography className={classes.resultsText} variant='body1'>
           {props.query.name ? `Showing results for "${props.query.name}".` : 'Showing results.'}
         </Typography>
         <ResultsToolbar
-          dataSource={dataSource}
+          paginatedData={paginatedData}
           format={format}
           setFormat={setFormat}
           tableFields={tableFields}
@@ -78,20 +78,20 @@ function Results(props) {
         <Divider />
         <Box className={classes.centeredContainer}>
           {format === 'images' ? (
-            <ImageResults cards={dataSource.data} />
+            <ImageResults cards={paginatedData.data} />
           ) : (
-            <ListResults dataSource={dataSource} />
+            <ListResults paginatedData={paginatedData} />
           )}
         </Box>
         <Divider />
         <Box className={classes.centeredContainer}>
           <Pagination
-            count={dataSource.finalPage}
+            count={paginatedData.finalPage}
             color='secondary'
-            page={dataSource.currentPage + 1}
+            page={paginatedData.currentPage + 1}
             onChange={handlePageChange}
           />
-          <Select value={dataSource.itemsPerPage} onChange={changeOnItemsPerPage}>
+          <Select value={paginatedData.itemsPerPage} onChange={changeOnItemsPerPage}>
             <MenuItem value={12}>12</MenuItem>
             <MenuItem value={24}>24</MenuItem>
             <MenuItem value={48}>48</MenuItem>

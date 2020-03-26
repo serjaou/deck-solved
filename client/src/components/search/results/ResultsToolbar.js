@@ -27,13 +27,13 @@ function ResultsToolbar(props) {
     props.setFormat(format);
   };
   const handlePageChange = (event, value) => {
-    props.dataSource.setPage(value - 1);
+    props.paginatedData.setPage(value - 1);
   };
   const changeOnItemsPerPage = (event, value) => {
-    props.dataSource.setItemsPerPage(event.target.value);
+    props.paginatedData.setItemsPerPage(event.target.value);
   };
   const handleSelect = (event, value) => {
-    props.dataSource.sortByField(event.target.value);
+    props.paginatedData.sortByField(event.target.value);
   };
 
   return (
@@ -61,7 +61,7 @@ function ResultsToolbar(props) {
               </Typography>
               <Select
                 className={classes.select}
-                value={props.dataSource.sortedField}
+                value={props.paginatedData.sortedField}
                 onChange={handleSelect}
               >
                 {props.tableFields.map(field => (
@@ -75,12 +75,12 @@ function ResultsToolbar(props) {
         </Box>
         <Box className={classes.pagination}>
           <Pagination
-            count={props.dataSource.finalPage}
+            count={props.paginatedData.finalPage}
             color='secondary'
-            page={props.dataSource.currentPage + 1}
+            page={props.paginatedData.currentPage + 1}
             onChange={handlePageChange}
           />
-          <Select value={props.dataSource.itemsPerPage} onChange={changeOnItemsPerPage}>
+          <Select value={props.paginatedData.itemsPerPage} onChange={changeOnItemsPerPage}>
             <MenuItem value={12}>12</MenuItem>
             <MenuItem value={24}>24</MenuItem>
             <MenuItem value={48}>48</MenuItem>

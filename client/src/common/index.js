@@ -1,4 +1,6 @@
+import tableFields from './tableFields';
 import theme from './theme';
-import usePaginatedData from './usePaginatedData';
+import usePaginatedData from './customHooks/usePaginatedData';
+import useSubmitSearch from './customHooks/useSubmitSearch';
 
-export { theme, usePaginatedData };
+export { tableFields, theme, usePaginatedData, useSubmitSearch };

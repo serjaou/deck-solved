@@ -1,10 +1,11 @@
 import React from 'react';
 import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { CardPage } from '../../components/card';
-import { SearchRouter } from '../../components/search';
+import { Results, SearchPage } from '../../components/search';
 import { NotFound } from '../../components/supp';
+import qs from 'qs';
 
 const useStyles = makeStyles({
   container: { minHeight: '90vh', padding: '0' }
@@ -12,6 +13,8 @@ const useStyles = makeStyles({
 
 function Content() {
   const classes = useStyles();
+  const location = useLocation();
+  const queryObj = location.search ? qs.parse(location.search.slice(1)) : null;
 
   return (
     <Container className={classes.container} maxWidth='lg'>
@@ -20,7 +23,7 @@ function Content() {
           <Redirect to='/search' />
         </Route>
         <Route exact path='/search'>
-          <SearchRouter />
+          {queryObj ? <Results query={queryObj} /> : <SearchPage />}
         </Route>
         <Route exact path='/cards/:name'>
           <CardPage />

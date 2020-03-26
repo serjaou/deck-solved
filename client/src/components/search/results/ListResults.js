@@ -4,7 +4,7 @@ import { TableRow, TableSortLabel, Tooltip, Paper } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import { CardImage, CardText } from '../../card';
-import tableFields from './_tableFields';
+import { tableFields } from '../../../common';
 
 const useStyles = makeStyles(theme => ({
   cell: { overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' },
@@ -48,11 +48,11 @@ function ListResults(props) {
   const classes = useStyles();
 
   const createSortHandler = field => {
-    if (field === props.dataSource.sortedField) {
+    if (field === props.paginatedData.sortedField) {
       setOrder(order === 'desc' ? 'asc' : 'desc');
     }
-    props.dataSource.sortByField(field);
-    props.dataSource.setPage(0);
+    props.paginatedData.sortByField(field);
+    props.paginatedData.setPage(0);
   };
   const handleClick = name => {
     history.push({
@@ -69,11 +69,11 @@ function ListResults(props) {
               <TableCell
                 className={makeStyles({ cell: { width: props => props.cellWidth } })(field).cell}
                 key={field._id}
-                sortDirection={field.name === props.dataSource.sortedField ? order : false}
+                sortDirection={field.name === props.paginatedData.sortedField ? order : false}
               >
                 <TableSortLabel
-                  active={props.dataSource.sortedField === field.name}
-                  direction={props.dataSource.sortedField === field.name ? order : 'asc'}
+                  active={props.paginatedData.sortedField === field.name}
+                  direction={props.paginatedData.sortedField === field.name ? order : 'asc'}
                   onClick={() => createSortHandler(field.name)}
                 >
                   {field.label.toUpperCase()}
@@ -83,7 +83,7 @@ function ListResults(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {props.dataSource.data.map(card => (
+          {props.paginatedData.data.map(card => (
             <StyledTableRow key={card.id} onClick={() => handleClick(card.name)}>
               <TableCell>
                 <StyledTooltip
