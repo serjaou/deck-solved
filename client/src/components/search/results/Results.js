@@ -1,27 +1,15 @@
 import React, { useState } from 'react';
-import { Box, Divider, MenuItem, Select } from '@material-ui/core';
-import { Pagination } from '@material-ui/lab';
+import { Box, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { ResultsImages, ResultsList, ResultsToolbar } from '../results';
-import $ from 'jquery';
-
-const ITEMS_PER_PAGE_VALUES = [12, 24, 48, 96, 192];
+import { ResultsImages, ResultsList, ResultsPagination, ResultsToolbar } from '../results';
 
 const useStyles = makeStyles({
-  container: { display: 'flex', flexWrap: 'wrap', justifyContent: 'center', padding: '1rem 0' }
+  centeredBox: { display: 'flex', flexWrap: 'wrap', justifyContent: 'center', padding: '1rem 0' }
 });
 
 function Results(props) {
   const [format, setFormat] = useState('images');
   const classes = useStyles();
-
-  const handlePageChange = (event, value) => {
-    props.paginatedData.setPage(value - 1);
-    $('html,body').scrollTop(0);
-  };
-  const changeOnItemsPerPage = (event, value) => {
-    props.paginatedData.setItemsPerPage(event.target.value);
-  };
 
   return (
     <div>
@@ -30,31 +18,18 @@ function Results(props) {
         format={format}
         setFormat={setFormat}
         tableFields={props.tableFields}
-        itemsPerPageValues={ITEMS_PER_PAGE_VALUES}
       />
       <Divider />
-      <Box className={classes.container}>
+      <Box className={classes.centeredBox}>
         {format === 'images' ? (
-          <ResultsImages cards={props.paginatedData.data} />
+          <ResultsImages paginatedData={props.paginatedData} />
         ) : (
           <ResultsList paginatedData={props.paginatedData} />
         )}
-      </Box>
-      <Divider />
-      <Box className={classes.container}>
-        <Pagination
-          count={props.paginatedData.finalPage}
-          color='secondary'
-          page={props.paginatedData.currentPage + 1}
-          onChange={handlePageChange}
-        />
-        <Select value={props.paginatedData.itemsPerPage} onChange={changeOnItemsPerPage}>
-          {ITEMS_PER_PAGE_VALUES.map(value => (
-            <MenuItem key={value} value={value}>
-              {value}
-            </MenuItem>
-          ))}
-        </Select>
+        <Divider />
+        <div>
+          <ResultsPagination paginatedData={props.paginatedData} />
+        </div>
       </Box>
     </div>
   );
