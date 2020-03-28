@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, CircularProgress, Grid, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import FlipToFrontOutlined from '@material-ui/icons/FlipToFrontOutlined';
 import { CardDetails, CardExtraInfo, CardImage, CardRulings } from '../card';
 import axios from 'axios';
@@ -13,38 +13,32 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function CardPage() {
-  const location = useLocation();
-  const hasStartingData = location.state && location.state.card;
-  const [cardData, setCardData] = useState(hasStartingData ? location.state.card : undefined);
-  const [dataLoaded, setDataLoaded] = useState(hasStartingData ? true : false);
+  const [cardData, setCardData] = useState(undefined);
+  const [dataLoaded, setDataLoaded] = useState(false);
   const [currentFace, setCurrentFace] = useState('front');
+  const { name: cardName } = useParams();
   const classes = useStyles();
 
-  // if the component it is called without cardData, infer the card name
-  // from the URL params and obtain the cardData from the server.
-  const { name: cardName } = useParams();
   useEffect(() => {
-    if (!hasStartingData && cardName) {
-      axios
-        .get('/api/cards/', {
-          params: { name: decodeURIComponent(cardName) }
-        })
-        .then(
-          response => {
-            if (response.data.length > 0) {
-              setCardData(response.data[0]);
-            }
-            setDataLoaded(true);
-          },
-          error => console.log(error)
-        );
-    }
+    axios
+      .get('/api/cards/', {
+        params: { name: decodeURIComponent(cardName) }
+      })
+      .then(
+        response => {
+          if (response.data.length > 0) {
+            setCardData(response.data[0]);
+          }
+          setDataLoaded(true);
+        },
+        error => console.log(error)
+      );
     return () => {
       setCardData([]);
       setDataLoaded(false);
       setCurrentFace('front');
     };
-  }, [hasStartingData, cardName]);
+  }, [cardName]);
 
   // two-faced cards logic, 'front' by default.
   const cardFaces =

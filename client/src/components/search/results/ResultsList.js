@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead } from '@material-ui/core';
-import { TableRow, TableSortLabel, Tooltip, Paper } from '@material-ui/core';
+import { TableRow, TableSortLabel, Tooltip, Link, Paper } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { CardImage, CardText } from '../../card';
-import { useGoToCardPage } from '../../../common';
 
 const useStyles = makeStyles(theme => ({
   cell: { overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' },
@@ -13,7 +12,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const RangedColorTableRow = withStyles({
-  root: { cursor: 'pointer', '&:nth-of-type(odd)': { backgroundColor: '#FFFFFF' } }
+  root: { '&:nth-of-type(odd)': { backgroundColor: '#FFFFFF' } }
 })(TableRow);
 
 const CardImageTooltip = withStyles({
@@ -22,7 +21,6 @@ const CardImageTooltip = withStyles({
 
 function ResultsList(props) {
   const [sortingOrder, setSortingOrder] = useState('desc');
-  const goToCardPage = useGoToCardPage();
   const classes = useStyles();
 
   const sortTable = sortingField => {
@@ -56,14 +54,16 @@ function ResultsList(props) {
         </TableHead>
         <TableBody>
           {props.paginatedData.data.map(card => (
-            <RangedColorTableRow key={card.id} onClick={() => goToCardPage(card)}>
+            <RangedColorTableRow key={card.id}>
               <TableCell className={classes.cell}>
                 <CardImageTooltip
                   placement='right'
                   TransitionProps={{ timeout: { enter: 0, exit: 0 } }}
                   title={<CardImage card={card} variant='normal' />}
                 >
-                  <span>{card.name}</span>
+                  <Link href={`/cards/${encodeURIComponent(card.name)}`} underline='none'>
+                    {card.name}
+                  </Link>
                 </CardImageTooltip>
               </TableCell>
               <TableCell className={classes.cell}>

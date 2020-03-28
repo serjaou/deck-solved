@@ -1,8 +1,7 @@
 import React from 'react';
-import { Grid, useMediaQuery } from '@material-ui/core';
+import { Grid, Link, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { CardImage } from '../../card';
-import { useGoToCardPage } from '../../../common';
 
 const useStyles = makeStyles({
   // dynamic card-classes for grid responsiveness.
@@ -13,7 +12,6 @@ const useStyles = makeStyles({
 });
 
 function ResultsImages(props) {
-  const goToCardPage = useGoToCardPage();
   const classes = useStyles();
 
   // view-port media queries.
@@ -26,7 +24,9 @@ function ResultsImages(props) {
     <Grid container direction='row' spacing={1}>
       {props.paginatedData.data.map(card => (
         <Grid className={classes[cardClass]} key={card.id} item>
-          <CardImage onClickHandler={() => goToCardPage(card)} card={card} variant='normal' />
+          <Link href={`/cards/${encodeURIComponent(card.name)}`}>
+            <CardImage card={card} variant='normal' />
+          </Link>
         </Grid>
       ))}
     </Grid>

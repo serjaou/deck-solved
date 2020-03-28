@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Box, CircularProgress, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
 import { Results } from './results';
-import { tableFields, useGoToCardPage, usePaginatedData } from '../../common';
+import { tableFields, usePaginatedData } from '../../common';
 import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
@@ -19,8 +20,8 @@ const sortingFunctions = Object.assign(
 
 function Search(props) {
   const paginatedData = usePaginatedData(undefined, sortingFunctions);
-  const goToCardPage = useGoToCardPage();
   const [dataLoaded, setDataLoaded] = useState(false);
+  const history = useHistory();
   const classes = useStyles();
 
   useEffect(() => {
@@ -28,7 +29,7 @@ function Search(props) {
       cards => {
         if (cards.data && cards.data.length === 1) {
           // if there is only one result, redirect to CardPage.
-          goToCardPage(cards.data[0]);
+          history.push({ pathname: `/cards/${encodeURIComponent(cards.data[0].name)}` });
         } else {
           paginatedData.setData(cards.data);
           setDataLoaded(true);

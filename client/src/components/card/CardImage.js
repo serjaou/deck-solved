@@ -7,8 +7,7 @@ const useStyles = makeStyles({
     backgroundImage: 'repeating-linear-gradient(-45deg, #CCC, #CCC 6px, #BBB 6px, #BBB 12px)',
     borderRadius: '4.75% / 3.5%',
     filter: 'drop-shadow(0.25rem 0.25rem 0.25rem #333)',
-    webkitFilter: 'drop-shadow(0.25rem 0.25rem 0.25rem #333)',
-    cursor: props => (props.onClickHandler ? 'pointer' : '')
+    webkitFilter: 'drop-shadow(0.25rem 0.25rem 0.25rem #333)'
   }
 });
 
@@ -24,7 +23,6 @@ function CardImage(props) {
           : props.card.image_uris[props.variant]
       }
       alt={props.card.name ? props.card.name : ''}
-      onClick={props.onClickHandler ? props.onClickHandler : undefined}
     />
   );
 }
