@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Box, CircularProgress, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from 'react-router-dom';
 import { Results } from './results';
-import { tableFields, usePaginatedData } from '../../common';
+import { tableFields, useGoToCardPage, usePaginatedData } from '../../common';
 import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
@@ -13,24 +12,23 @@ const useStyles = makeStyles(theme => ({
   text: { fontSize: '1.125rem', padding: '1.25rem 0' }
 }));
 
+// create sortingFunctions object needed to sort the paginated data according to a field.
 const sortingFunctions = Object.assign(
   ...tableFields.map(field => ({ [field.name]: field.compare }))
 );
 
 function Search(props) {
   const paginatedData = usePaginatedData(undefined, sortingFunctions);
+  const goToCardPage = useGoToCardPage();
   const [dataLoaded, setDataLoaded] = useState(false);
-  const history = useHistory();
   const classes = useStyles();
 
   useEffect(() => {
     axios.get('api/cards/', { params: props.query }).then(
       cards => {
         if (cards.data && cards.data.length === 1) {
-          history.push({
-            pathname: `/cards/${encodeURIComponent(cards.data[0].name)}`,
-            state: { card: cards.data[0] }
-          });
+          // if there is only one result, redirect to CardPage.
+          goToCardPage(cards.data[0]);
         } else {
           paginatedData.setData(cards.data);
           setDataLoaded(true);

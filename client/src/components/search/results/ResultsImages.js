@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from 'react-router-dom';
 import { CardImage } from '../../card';
+import { useGoToCardPage } from '../../../common';
 
 const useStyles = makeStyles({
   // dynamic card-classes for grid responsiveness.
@@ -13,8 +13,8 @@ const useStyles = makeStyles({
 });
 
 function ResultsImages(props) {
+  const goToCardPage = useGoToCardPage();
   const classes = useStyles();
-  const history = useHistory();
 
   // view-port media queries.
   const small = useMediaQuery('(max-width:512px)');
@@ -22,18 +22,11 @@ function ResultsImages(props) {
   const large = useMediaQuery('(max-width:1024px)');
   const cardClass = small ? 'small' : medium ? 'medium' : large ? 'large' : 'default';
 
-  const gotoCardPage = card => {
-    history.push({
-      pathname: `/cards/${encodeURIComponent(card.name)}`,
-      state: { card }
-    });
-  };
-
   return (
     <Grid container direction='row' spacing={1}>
       {props.paginatedData.data.map(card => (
         <Grid className={classes[cardClass]} key={card.id} item>
-          <CardImage onClickHandler={() => gotoCardPage(card)} card={card} variant='normal' />
+          <CardImage onClickHandler={() => goToCardPage(card)} card={card} variant='normal' />
         </Grid>
       ))}
     </Grid>

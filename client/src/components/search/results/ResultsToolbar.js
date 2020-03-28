@@ -24,7 +24,7 @@ function ResultsToolbar(props) {
         className={classes.toggleButtons}
         size='small'
         value={props.format}
-        onChange={(event, format) => props.setFormat(format)}
+        onChange={(event, value) => props.setFormat(value)}
         exclusive
       >
         <ToggleButton className={classes.formatButton} value='list'>

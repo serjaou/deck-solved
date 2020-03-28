@@ -24,7 +24,7 @@ function Results(props) {
         {format === 'images' ? (
           <ResultsImages paginatedData={props.paginatedData} />
         ) : (
-          <ResultsList paginatedData={props.paginatedData} />
+          <ResultsList paginatedData={props.paginatedData} tableFields={props.tableFields} />
         )}
         <Divider />
         <div>

@@ -15,7 +15,7 @@ function ResultsPagination(props) {
 
   const changePage = (event, value) => {
     props.paginatedData.setPage(value - 1);
-    // scroll to top on pace change.
+    // scroll to top on page change.
     $('html,body').scrollTop(0);
   };
 
