@@ -5,6 +5,7 @@ import { CardText } from '../card';
 
 const useStyles = makeStyles({
   container: { paddingLeft: '0.25rem', paddingTop: '1rem' },
+  manaCost: { display: 'inline-block' },
   text: { padding: '0.5rem 0' }
 });
 
@@ -17,7 +18,9 @@ function CardDetails(props) {
         <Typography display='inline' variant='h5'>
           <strong>{props.card.name}&nbsp;</strong>
         </Typography>
-        {props.card.mana_cost && <CardText text={props.card.mana_cost} />}
+        <span className={classes.manaCost}>
+          {props.card.mana_cost && <CardText text={props.card.mana_cost} />}
+        </span>
       </div>
       <Divider />
       <Typography className={classes.text} variant='subtitle1'>

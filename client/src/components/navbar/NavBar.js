@@ -8,7 +8,6 @@ import { NavButtons } from '../navbar';
 import { useSubmitSearch } from '../../common';
 
 const useStyles = makeStyles(theme => ({
-  container: { padding: '0 2rem' },
   logo: { height: '2.25rem', cursor: 'pointer' },
   logoBox: { flexGrow: 1, marginRight: '1rem' },
   searchInput: { color: theme.palette.common.white },
@@ -20,7 +19,7 @@ function NavBar() {
   const classes = useStyles();
   const location = useLocation();
   const history = useHistory();
-  const smallScreen = useMediaQuery('(max-width:600px)');
+  const smallScreen = useMediaQuery('(max-width:599px)');
   const [searchValue, setSearchValue, submitSearch] = useSubmitSearch();
 
   const redirectToHome = () => {

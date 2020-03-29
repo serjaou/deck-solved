@@ -3,7 +3,8 @@ import { Chip, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
-  container: { display: 'flex', padding: '0.25rem' }
+  container: { display: 'flex', padding: '0.25rem' },
+  leftBox: { marginRight: '0.25rem' }
 });
 
 function CardExtraInfo(props) {
@@ -11,7 +12,7 @@ function CardExtraInfo(props) {
 
   return (
     <div className={classes.container}>
-      <div>
+      <div className={classes.leftBox}>
         <Grid container spacing={1}>
           {Object.keys(props.cardData.legalities).map(format => (
             <Grid item key={format}>

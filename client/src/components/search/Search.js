@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, CircularProgress, Paper, Typography } from '@material-ui/core';
+import { Box, CircularProgress, Paper, Typography, Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import { Results } from './results';
@@ -7,7 +7,8 @@ import { tableFields, usePaginatedData } from '../../common';
 import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
-  container: { padding: '0 2rem', backgroundColor: theme.palette.common.white },
+  container: { minHeight: '90vh' },
+  paper: { backgroundColor: theme.palette.common.white },
   progress: { margin: '14rem 0 20rem' },
   progressBox: { textAlign: 'center' },
   text: { fontSize: '1.125rem', padding: '1.25rem 0' }
@@ -47,37 +48,41 @@ function Search(props) {
   }, [props.query]);
 
   return (
-    <Paper className={classes.container} elevation={2}>
-      {dataLoaded ? (
-        paginatedData.data.length > 0 ? (
+    <Paper className={classes.paper} elevation={2}>
+      <Container maxWidth='lg'>
+        {dataLoaded ? (
+          paginatedData.data.length > 0 ? (
+            <div>
+              <Typography className={classes.text} variant='body1'>
+                {props.query.name
+                  ? `${paginatedData.totalItems} cards found for "${props.query.name}".`
+                  : `${paginatedData.totalItems} cards found.`}
+              </Typography>
+              <Results paginatedData={paginatedData} tableFields={tableFields} />
+            </div>
+          ) : (
+            <Typography className={classes.text} variant='body1'>
+              {props.query.name ? `No cards found for "${props.query.name}".` : 'No cards found.'}
+            </Typography>
+          )
+        ) : (
           <div>
             <Typography className={classes.text} variant='body1'>
               {props.query.name
-                ? `${paginatedData.totalItems} cards found for "${props.query.name}".`
-                : `${paginatedData.totalItems} cards found.`}
+                ? `Searching cards for "${props.query.name}".`
+                : 'Searching cards...'}
             </Typography>
-            <Results paginatedData={paginatedData} tableFields={tableFields} />
+            <Box className={classes.progressBox}>
+              <CircularProgress
+                className={classes.progress}
+                size={56}
+                thickness={4.4}
+                color='secondary'
+              />
+            </Box>
           </div>
-        ) : (
-          <Typography className={classes.text} variant='body1'>
-            {props.query.name ? `No cards found for "${props.query.name}".` : 'No cards found.'}
-          </Typography>
-        )
-      ) : (
-        <div>
-          <Typography className={classes.text} variant='body1'>
-            {props.query.name ? `Searching cards for "${props.query.name}".` : 'Searching cards...'}
-          </Typography>
-          <Box className={classes.progressBox}>
-            <CircularProgress
-              className={classes.progress}
-              size={56}
-              thickness={4.4}
-              color='secondary'
-            />
-          </Box>
-        </div>
-      )}
+        )}
+      </Container>
     </Paper>
   );
 }

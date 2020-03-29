@@ -5,20 +5,18 @@ import { CardImage } from '../../card';
 
 const useStyles = makeStyles({
   // dynamic card-classes for grid responsiveness.
-  small: { width: '98.5%', minWidth: '14rem' },
-  medium: { width: '49.25%', minWidth: '14rem' },
-  large: { width: '32.75%', minWidth: '14rem' },
-  default: { width: '24.5%', minWidth: '14rem' }
+  small: { width: '49.8%', minWidth: '8rem' },
+  medium: { width: '33.2%', minWidth: '10rem' },
+  default: { width: '24.9%', minWidth: '12rem' }
 });
 
 function ResultsImages(props) {
   const classes = useStyles();
 
   // view-port media queries.
-  const small = useMediaQuery('(max-width:512px)');
-  const medium = useMediaQuery('(max-width:768px)');
-  const large = useMediaQuery('(max-width:1024px)');
-  const cardClass = small ? 'small' : medium ? 'medium' : large ? 'large' : 'default';
+  const small = useMediaQuery('(max-width:599px)');
+  const medium = useMediaQuery('(max-width:960px)');
+  const cardClass = small ? 'small' : medium ? 'medium' : 'default';
 
   return (
     <Grid container direction='row' spacing={1}>

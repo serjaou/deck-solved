@@ -10,7 +10,7 @@ const useStyles = makeStyles({
 
 function NavButtons() {
   const classes = useStyles();
-  const mediumOrSmallScreen = useMediaQuery('(max-width:800px)');
+  const mediumOrSmallScreen = useMediaQuery('(max-width:720px)');
   const [anchorEl, setAnchorEl] = useState(null);
 
   const openMenu = event => {

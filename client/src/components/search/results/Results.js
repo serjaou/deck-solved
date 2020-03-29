@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ResultsImages, ResultsList, ResultsPagination, ResultsToolbar } from '../results';
 
 const useStyles = makeStyles({
-  centeredBox: { display: 'flex', flexWrap: 'wrap', justifyContent: 'center', padding: '1rem 0' }
+  centeredBox: { display: 'flex', justifyContent: 'center', padding: '1rem 0' }
 });
 
 function Results(props) {
@@ -26,10 +26,10 @@ function Results(props) {
         ) : (
           <ResultsList paginatedData={props.paginatedData} tableFields={props.tableFields} />
         )}
-        <Divider />
-        <div>
-          <ResultsPagination paginatedData={props.paginatedData} />
-        </div>
+      </Box>
+      <Divider />
+      <Box className={classes.centeredBox}>
+        <ResultsPagination paginatedData={props.paginatedData} />
       </Box>
     </div>
   );
