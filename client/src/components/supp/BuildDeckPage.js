@@ -7,19 +7,19 @@ const useStyles = makeStyles({
   divider: { margin: '1rem 0' }
 });
 
-function NotFound() {
+function BuildDeckPage() {
   const classes = useStyles();
   return (
     <Container className={classes.container} maxWidth='md'>
       <Typography variant='h4' align='justify'>
-        <strong>NOT FOUND</strong>
+        <strong>BUILD DECK</strong>
       </Typography>
       <Divider className={classes.divider} />
       <Typography variant='body1' align='justify'>
-        The URL that you are trying to access doesn't exist.
+        <em>Coming soon...</em>
       </Typography>
     </Container>
   );
 }
 
-export default NotFound;
+export default BuildDeckPage;

@@ -12,7 +12,7 @@ function Footer() {
 
   return (
     <Container className={classes.container} maxWidth='sm'>
-      CopyRight© {currentYear}, Sergio Guidi
+      CopyRight© {currentYear} Sergio Guidi, All rights reserved.
     </Container>
   );
 }

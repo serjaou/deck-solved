@@ -1,3 +1,5 @@
+import AboutPage from './AboutPage';
+import BuildDeckPage from './BuildDeckPage';
 import NotFound from './NotFound';
 
-export { NotFound };
+export { AboutPage, BuildDeckPage, NotFound };

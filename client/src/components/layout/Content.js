@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { CardPage } from '../../components/card';
 import { Search, SearchPage } from '../../components/search';
-import { NotFound } from '../../components/supp';
+import { AboutPage, BuildDeckPage, NotFound } from '../../components/supp';
 import qs from 'qs';
 
 const useStyles = makeStyles({
@@ -29,10 +29,10 @@ function Content() {
           <CardPage />
         </Route>
         <Route exact path='/build-deck'>
-          __BUILD_DECK
+          <BuildDeckPage />
         </Route>
         <Route exact path='/about'>
-          __ABOUT
+          <AboutPage />
         </Route>
         <Route exact path='*'>
           <NotFound />
