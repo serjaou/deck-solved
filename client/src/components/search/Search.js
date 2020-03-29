@@ -35,7 +35,10 @@ function Search(props) {
           setDataLoaded(true);
         }
       },
-      error => console.log(error)
+      error => {
+        setDataLoaded(true);
+        console.log(error);
+      }
     );
     return () => {
       paginatedData.setData([]);

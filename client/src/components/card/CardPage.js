@@ -31,7 +31,10 @@ function CardPage() {
           }
           setDataLoaded(true);
         },
-        error => console.log(error)
+        error => {
+          console.log(error);
+          setDataLoaded(true);
+        }
       );
     return () => {
       setCardData([]);

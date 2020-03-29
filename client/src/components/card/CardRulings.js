@@ -24,7 +24,10 @@ function CardRulings(props) {
           setRulingData(ruling.data);
           setDataLoaded(true);
         },
-        error => console.log(error)
+        error => {
+          console.log(error);
+          setDataLoaded(true);
+        }
       );
     return () => {
       setRulingData([]);
