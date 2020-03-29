@@ -17,7 +17,7 @@ function usePaginatedData(data = [], sortingFunctions = {}, itemsPerPage = 48) {
   const _totalItems = _data.length;
 
   const setData = data => {
-    if (Array.isArray(data) && data.length > 0) {
+    if (Array.isArray(data)) {
       _setData(data);
     }
   };

@@ -60,9 +60,7 @@ function Search(props) {
           </div>
         ) : (
           <Typography className={classes.text} variant='body1'>
-            {props.query.name
-              ? `No results were found for "${props.query.name}".`
-              : 'No results were found.'}
+            {props.query.name ? `No cards found for "${props.query.name}".` : 'No cards found.'}
           </Typography>
         )
       ) : (
