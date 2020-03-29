@@ -52,7 +52,9 @@ function Search(props) {
         paginatedData.data.length > 0 ? (
           <div>
             <Typography className={classes.text} variant='body1'>
-              {props.query.name ? `Showing results for "${props.query.name}".` : 'Showing results.'}
+              {props.query.name
+                ? `${paginatedData.totalItems} cards found for "${props.query.name}".`
+                : `${paginatedData.totalItems} cards found.`}
             </Typography>
             <Results paginatedData={paginatedData} tableFields={tableFields} />
           </div>
@@ -66,7 +68,7 @@ function Search(props) {
       ) : (
         <div>
           <Typography className={classes.text} variant='body1'>
-            {props.query.name ? `Searching for "${props.query.name}".` : 'Searching...'}
+            {props.query.name ? `Searching cards for "${props.query.name}".` : 'Searching cards...'}
           </Typography>
           <Box className={classes.progressBox}>
             <CircularProgress

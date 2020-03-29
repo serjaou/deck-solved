@@ -14,6 +14,7 @@ function usePaginatedData(data = [], sortingFunctions = {}, itemsPerPage = 48) {
   const [_itemsPerPage, _setItemsPerPage] = useState(itemsPerPage);
   const [_sortedField, _setSortedField] = useState('');
   const _finalPage = Math.ceil(_data.length / _itemsPerPage);
+  const _totalItems = _data.length;
 
   const setData = data => {
     if (Array.isArray(data) && data.length > 0) {
@@ -41,11 +42,12 @@ function usePaginatedData(data = [], sortingFunctions = {}, itemsPerPage = 48) {
   };
 
   return {
-    finalPage: _finalPage,
-    data: _data.slice(_page * _itemsPerPage, (_page + 1) * _itemsPerPage),
-    itemsPerPage: _itemsPerPage,
     currentPage: _page,
+    data: _data.slice(_page * _itemsPerPage, (_page + 1) * _itemsPerPage),
+    finalPage: _finalPage,
+    itemsPerPage: _itemsPerPage,
     sortedField: _sortedField,
+    totalItems: _totalItems,
     setData,
     setPage,
     setItemsPerPage,
