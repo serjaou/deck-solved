@@ -14,10 +14,10 @@ function CardExtraInfo(props) {
     <div className={classes.container}>
       <div className={classes.leftBox}>
         <Grid container spacing={1}>
-          {Object.keys(props.cardData.legalities).map(format => (
+          {Object.keys(props.card.legalities).map(format => (
             <Grid item key={format}>
               <Chip
-                disabled={props.cardData.legalities[format] === 'not_legal'}
+                disabled={props.card.legalities[format] === 'not_legal'}
                 color='secondary'
                 label={<strong>{format}</strong>}
                 size='small'
@@ -28,13 +28,13 @@ function CardExtraInfo(props) {
       </div>
       <div>
         <Grid container spacing={1}>
-          {Object.keys(props.cardData.related_uris).map(uri => (
+          {Object.keys(props.card.related_uris).map(uri => (
             <Grid item key={uri}>
               <Chip
                 clickable
                 label={<strong>{uri.replace(/_/g, ' ').toUpperCase()}</strong>}
                 size='small'
-                onClick={() => window.open(props.cardData.related_uris[uri], '_blank')}
+                onClick={() => window.open(props.card.related_uris[uri], '_blank')}
                 variant='outlined'
               />
             </Grid>

@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useParams } from 'react-router-dom';
 import FlipToFrontOutlined from '@material-ui/icons/FlipToFrontOutlined';
 import { CardDetails, CardExtraInfo, CardImage, CardRulings } from '../card';
+import { isMultipleFaced } from '../../common';
 import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
@@ -14,7 +15,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function CardPage() {
-  const [cardData, setCardData] = useState(undefined);
+  const [card, setCard] = useState(undefined);
   const [dataLoaded, setDataLoaded] = useState(false);
   const [currentFace, setCurrentFace] = useState('front');
   const { name: cardName } = useParams();
@@ -26,9 +27,9 @@ function CardPage() {
         params: { name: decodeURIComponent(cardName) }
       })
       .then(
-        response => {
-          if (response.data.length > 0) {
-            setCardData(response.data[0]);
+        card => {
+          if (card.data[0]) {
+            setCard(card.data[0]);
           }
           setDataLoaded(true);
         },
@@ -38,7 +39,7 @@ function CardPage() {
         }
       );
     return () => {
-      setCardData([]);
+      setCard([]);
       setDataLoaded(false);
       setCurrentFace('front');
     };
@@ -46,9 +47,9 @@ function CardPage() {
 
   // two-faced cards logic, 'front' by default.
   const cardFaces =
-    cardData && cardData.layout === 'transform'
-      ? { front: cardData.card_faces[0], back: cardData.card_faces[1] }
-      : { front: cardData };
+    card && card.layout === 'transform'
+      ? { front: card.card_faces[0], back: card.card_faces[1] }
+      : { front: card };
 
   const transformCard = () => {
     setCurrentFace(currentFace === 'front' ? 'back' : 'front');
@@ -58,11 +59,11 @@ function CardPage() {
     <Paper className={classes.paper} elevation={2}>
       <Container className={classes.container} maxWidth='lg'>
         {dataLoaded ? (
-          cardData ? (
+          card ? (
             <Grid container justify='center' spacing={2}>
               <Grid item xs={12} sm={6} md={4} className={classes.imageBox}>
                 <CardImage card={cardFaces[currentFace]} variant='png' />
-                {cardData.layout === 'transform' && (
+                {card.layout === 'transform' && (
                   <div className={classes.transformButton}>
                     <Button
                       variant='contained'
@@ -77,11 +78,18 @@ function CardPage() {
                 )}
               </Grid>
               <Grid item xs={12} sm={6} md={4}>
-                <CardDetails card={cardFaces[currentFace]} />
-                <CardExtraInfo cardData={cardData} />
+                {isMultipleFaced(card) ? (
+                  <div>
+                    <CardDetails card={card.card_faces[0]} />
+                    <CardDetails card={card.card_faces[1]} />
+                  </div>
+                ) : (
+                  <CardDetails card={card} />
+                )}
+                <CardExtraInfo card={card} />
               </Grid>
               <Grid item xs={12} sm={12} md={4}>
-                <CardRulings oracle_id={cardData.oracle_id} />
+                <CardRulings oracle_id={card.oracle_id} />
               </Grid>
             </Grid>
           ) : (

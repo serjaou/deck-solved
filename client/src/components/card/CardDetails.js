@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { CardText } from '../card';
 
 const useStyles = makeStyles({
-  container: { paddingLeft: '0.25rem', paddingTop: '1rem' },
+  container: { paddingLeft: '0.25rem' },
   manaCost: { display: 'inline-block' },
   text: { padding: '0.5rem 0' }
 });

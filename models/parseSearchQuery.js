@@ -2,6 +2,9 @@
 const parseQueryField = {
   name(nameValue) {
     return new RegExp(nameValue, 'i');
+  },
+  layout(layout) {
+    return layout;
   }
 };
 
@@ -13,8 +16,8 @@ const parseQueryField = {
 function parseSearchQuery(queryObject) {
   return Object.assign(
     ...Object.keys(queryObject).map(field => {
-      if (!(field in parseSearchQuery)) {
-        throw new Error(`bad request - ${field} not defined in 'parseQueryField'`);
+      if (!(field in parseQueryField)) {
+        throw new Error(`bad request - "${field}" is not defined in 'parseQueryField'`);
       }
       return { [field]: parseQueryField[field](queryObject[field]) };
     })
