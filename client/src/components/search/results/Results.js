@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { ResultsImages, ResultsList, ResultsPagination, ResultsToolbar } from '../results';
+import { ResultsImages, ResultsTable, ResultsPagination, ResultsToolbar } from '../results';
 
 const useStyles = makeStyles({
   centeredBox: { display: 'flex', justifyContent: 'center', padding: '1rem 0' }
@@ -24,7 +24,7 @@ function Results(props) {
         {format === 'images' ? (
           <ResultsImages paginatedData={props.paginatedData} />
         ) : (
-          <ResultsList paginatedData={props.paginatedData} tableFields={props.tableFields} />
+          <ResultsTable paginatedData={props.paginatedData} tableFields={props.tableFields} />
         )}
       </Box>
       <Divider />

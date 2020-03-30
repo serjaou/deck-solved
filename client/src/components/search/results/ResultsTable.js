@@ -19,7 +19,7 @@ const CardImageTooltip = withStyles({
   tooltip: { backgroundColor: 'transparent', maxWidth: 270 }
 })(Tooltip);
 
-function ResultsList(props) {
+function ResultsTable(props) {
   const [sortingOrder, setSortingOrder] = useState('desc');
   const classes = useStyles();
 
@@ -71,9 +71,6 @@ function ResultsList(props) {
               </TableCell>
               <TableCell className={classes.cell}>{card.type_line}</TableCell>
               <TableCell className={classes.cell}>{card.rarity}</TableCell>
-              <TableCell className={classes.cell}>
-                {card.power && card.power + '/' + card.toughness}
-              </TableCell>
               <TableCell className={classes.cell}>{card.artist}</TableCell>
             </RangedColorTableRow>
           ))}
@@ -83,4 +80,4 @@ function ResultsList(props) {
   );
 }
 
-export default ResultsList;
+export default ResultsTable;
