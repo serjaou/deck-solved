@@ -9,12 +9,14 @@ async function populateDatabaseFromURI(sourceURI, targetURI) {
     //
     console.log('Connecting to MongoDB databases...');
     const sourceConn = await mongoose.createConnection(sourceURI, {
+      dbName: 'deck-solved',
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
     const sourceModel = sourceConn.model('Card', cardSchema);
 
     const targetConn = await mongoose.createConnection(targetURI, {
+      dbName: 'deck-solved',
       useNewUrlParser: true,
       useUnifiedTopology: true
     });

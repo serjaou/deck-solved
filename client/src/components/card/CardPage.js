@@ -47,7 +47,7 @@ function CardPage() {
 
   // two-faced cards logic, 'front' by default.
   const cardFaces =
-    card && card.layout === 'transform'
+    card && (card.layout === 'transform' || card.layout === 'art_series')
       ? { front: card.card_faces[0], back: card.card_faces[1] }
       : { front: card };
 
@@ -63,7 +63,7 @@ function CardPage() {
             <Grid container justify='center' spacing={2}>
               <Grid item xs={12} sm={6} md={4} className={classes.imageBox}>
                 <CardImage card={cardFaces[currentFace]} variant='png' />
-                {card.layout === 'transform' && (
+                {(card.layout === 'transform' || card.layout === 'art_series') && (
                   <div className={classes.transformButton}>
                     <Button
                       variant='contained'

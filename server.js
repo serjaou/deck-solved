@@ -13,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // connect to the database.
 mongoose
   .connect(process.env.DB_URI, {
+    dbName: 'deck-solved',
     useNewUrlParser: true,
     useUnifiedTopology: true
   })

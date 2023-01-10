@@ -18,7 +18,7 @@ function CardImage(props) {
     <img
       className={classes.image}
       src={
-        props.card.layout === 'transform'
+        (props.card.layout === 'transform' || props.card.layout === 'art_series')
           ? props.card.card_faces[0].image_uris[props.variant]
           : props.card.image_uris[props.variant]
       }

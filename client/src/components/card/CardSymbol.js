@@ -21,7 +21,7 @@ function CardSymbol(props) {
   return (
     <img
       className={classes.symbolImage}
-      src={`https://img.scryfall.com/symbology/${baredSymbol}.svg`}
+      src={`https://svgs.scryfall.io/card-symbols/${baredSymbol}.svg`}
       alt={props.symbol}
     />
   );
